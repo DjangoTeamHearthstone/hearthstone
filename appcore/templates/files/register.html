@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+    <h2 class="subtitle">Création de compte</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="button is-link" type="submit">Valider</button>
+    </form>
+
+
+    <a class="button is-info is-outlined" href="/">Accueil</a>
+
+{% endblock %}
