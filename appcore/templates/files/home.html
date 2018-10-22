@@ -1,13 +1,25 @@
 {% extends 'index.html' %}
 
+{% block head %}
+    <title>Hearthstone - Tableau de bord</title>
+{% endblock %}
+
 {% block body %}
 
-    <h2 class="subtitle">Home page</h2>
+    <h2 class="subtitle">Tableau de bord</h2>
+
+    <p>Trésorerie : {{ user.profile.treasure }}</p>
+
+    <p>Carte name : {{ user.card }}</p>
+
+    <a class="button is-link is-rounded" href="/compte/">Mon compte</a>
+
+    <a class="button is-info is-rounded" href="/boutique/">Boutique</a>
 
     <form method="post">
         {% csrf_token %}
 
-        <button class="button is-danger" type="submit">Déconnexion</button>
+        <button class="button is-danger is-outlined" type="submit">Déconnexion</button>
     </form>
 
 {% endblock %}

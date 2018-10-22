@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <title>Hearthstone - Mon compte</title>
+{% endblock %}
+
+{% block body %}
+
+    <h2 class="subtitle">Mon compte</h2>
+
+    <p>Utilisateur : {{ user.username }}</p>
+    <p>Adresse mail : {{ user.email }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form_user.as_p }}
+
+        <button class="button is-link" type="submit">Valider</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form_password.as_p }}
+
+        <button class="button is-link" type="submit">Valider</button>
+    </form>
+
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+{% endblock %}

@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.welcome_view, name="welcome"),
     path('inscription/', views.register_view, name="register"),
     path('connexion/', views.login_view, name="login"),
-    # path('deconnexion/', views.logout_view, name="logout"),
-    path('accueil/', views.home_view, name="home"),
+    path('tableau-de-bord/', views.home_view, name="home"),
+    path('compte/', views.account_view, name="account"),
+    path('boutique/', views.shop_view, name="shop"),
 ]
