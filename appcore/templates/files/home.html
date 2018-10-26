@@ -10,7 +10,11 @@
 
     <p>Trésorerie : {{ user.profile.treasure }}</p>
 
-    <p>Carte name : {{ user.card }}</p>
+    {% for card in cardsUser %}
+
+        <p>Card Name: {{ card.name }}</p>
+
+    {% endfor %}
 
     <a class="button is-link is-rounded" href="/compte/">Mon compte</a>
 

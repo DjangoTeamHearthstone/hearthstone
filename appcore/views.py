@@ -53,11 +53,19 @@ def login_view(request):
 @login_required(login_url='/connexion')
 def home_view(request):
 
+    username = request.user.username
+    cardsUser = Card.objects.filter(user__username=username)
+
+    for card in cardsUser:
+        print('Ici la carte => ', card.name)
+
     if request.method == 'POST': # logout
         logout(request)
         return HttpResponseRedirect('/')
 
-    return render(request, 'files/home.html')
+    return render(request, 'files/home.html', {
+        'cardsUser': cardsUser
+    })
 
 
 @login_required(login_url='/connexion')
@@ -133,19 +141,6 @@ def shop_view(request):
             else:
                 form = CardForm(initial=data)
                 listforms.append(form)
-
-
-    # if request.method == 'POST': # save card to user
-    #     form = RegisterForm(request.POST)
-
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponseRedirect('/connexion/')
-
-    # else:
-    #     form = RegisterForm()
-
-
 
     return render(request, 'files/shop.html', {
         'cards': cards[:6],

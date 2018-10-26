@@ -10,34 +10,6 @@
 
     <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
 
-
-    <!-- {% for card in cards %}
-    <div class="card">
-
-        {% if card.health %}
-
-            {% if card.name %}<p>Nom : {{ card.name }}</p>{% endif %}
-            {% if card.cost %}<p>Coût : {{ card.cost }}</p>{% endif %}
-            {% if card.health %}<p>Santé : {{ card.health }}</p>{% endif %}
-            {% if card.attack %}<p>Attaque : {{ card.attack }}</p>{% endif %}
-            {% if card.text %}<p>Propriété : {{ card.text | safe }}</p>{% endif %}
-
-            <form method="post">
-                {% csrf_token %}
-
-                {{ form.name }} <br/>
-
-                <button class="button is-link" type="submit">Acheter</button>
-            </form>
-
-        {% endif %}
-
-    </div>
-    {% endfor %} -->
-
-
-
-
     {% for form in listforms %}
 
         <div class="card">
