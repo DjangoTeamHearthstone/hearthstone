@@ -1,0 +1,20 @@
+form {
+    display: flex;
+}
+
+.formCard {
+    width: 180px;
+    height: 265px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    padding: 0;
+    color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+#id_id {
+    display: none;
+}

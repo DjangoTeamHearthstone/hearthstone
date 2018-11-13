@@ -1,7 +1,9 @@
 {% extends 'index.html' %}
 
 {% block head %}
-    <title>Hearthstone - Boutique</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'files/shop.css' %}" type="text/css"/>
+<title>Hearthstone - Boutique</title>
 {% endblock %}
 
 {% block body %}
@@ -10,21 +12,30 @@
 
     <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
 
-    {% for form in listforms %}
+    <div class="shop_panel">
 
-        <div class="card">
+        {% for form in listforms %}
 
-            <form method="post">
-                {% csrf_token %}
+            <div class="buy_card">
 
-                <p>{{ form }}</p>
+                <form method="post">
 
-                <button class="button is-link" type="submit">Acheter</button>
-            </form>
+                    <fieldset disabled>
+                        {% csrf_token %}
 
-        </div> <br />
+                        <div class="card">
+                            {{ form }}
+                        </div>
 
-    {% endfor %}
+                        <button class="button is-link" type="submit">Acheter</button>
+                    </fieldset>
+                </form>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
 
 
 {% endblock %}

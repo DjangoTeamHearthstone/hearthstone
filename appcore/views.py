@@ -10,9 +10,7 @@ from django.contrib.auth.models import User
 from .models import Card
 
 import requests
-# import logging
 
-# logger = logging.getLogger(__name__)
 
 def welcome_view(request):
     return render(request, 'files/welcome.html')
@@ -55,9 +53,6 @@ def home_view(request):
 
     username = request.user.username
     cardsUser = Card.objects.filter(user__username=username)
-
-    for card in cardsUser:
-        print('Ici la carte => ', card.name)
 
     if request.method == 'POST': # logout
         logout(request)
@@ -114,9 +109,9 @@ def shop_view(request):
 
     listforms = []
 
-    for card in cards[:6]:
+    for card in cards[:15]:
 
-        if 'health' in card:
+        if 'health' in card and 'attack' in card and 'text' in card:
             # print("Card => ",card,"\n")
             # print("Card Name => ",card['name'],"\n")
 
@@ -143,6 +138,65 @@ def shop_view(request):
                 listforms.append(form)
 
     return render(request, 'files/shop.html', {
-        'cards': cards[:6],
+        'cards': cards,
+        'listforms': listforms
+    })
+
+
+@login_required(login_url='/connexion')
+def collection_view(request):
+
+    username = request.user.username
+    cardsUser = Card.objects.filter(user__username=username)
+
+    listforms = []
+    card_action = []
+
+    # for card in cardsUser:
+    #     print('Ici la carte id => ', card.id)
+
+    # if(request.GET.get('print_btn')):
+    #     print('=> CLICK ON DEF!!!')
+
+    # test = 6
+
+    # if(request.GET.get('6')):
+    #     print('=> CLICK ON DEF!!!')
+
+    if(request.GET.get('sale_btn')):
+        answer = request.GET
+        # print('\n=> FROM SALE BTN', "\n")
+        print('\n=> HERE IS ANSWER : ', answer, "\n")
+
+    if(request.GET.get('exchange_btn')):
+        print('\n=> FROM EXCHANGE BTN', "\n")
+
+    # if(request.GET.get(str(test))):
+    #     print('=> CLICK ON DEF!!!')
+
+    # for card in cardsUser:
+
+    #     # print('HERE IS NAME',card.name)
+    #     # print('HERE IS ID',card.id)
+
+
+    #     data = {
+    #         'id': card.id,
+    #         'name': card.name,
+    #         'cost': card.cost,
+    #         'health': card.health,
+    #         'attack': card.attack,
+    #         'text': strip_tags(card.text)
+    #     }
+
+    #     form = CardForm(initial=data)
+    #     listforms.append(form)
+
+    #     if(request.GET.get(str(card.id))):
+    #         print('\n=> HERE IS MY CARDID', card.id, "\n")
+
+
+    return render(request, 'files/collection.html', {
+        'cardsUser': cardsUser,
         'listforms': listforms
     })

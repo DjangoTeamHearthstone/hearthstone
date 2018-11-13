@@ -38,14 +38,29 @@ class ModifyForm(UserChangeForm):
         }
 
 class CardForm(forms.ModelForm):
+    id = forms.IntegerField()
 
     class Meta:
         model = Card
-        fields = ['name', 'cost', 'health', 'attack', 'text']
+        fields = [ 'id', 'name', 'cost', 'health', 'attack', 'text']
         labels = {
+            'id': 'Identifiant',
             'name': 'Nom',
             'cost': 'Coût',
             'health': 'Santé',
             'attack': 'Attaque',
             'text': 'Propriété'
         }
+
+    def __init__(self, *args, **kwargs):
+        super(CardForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            self.fields['name'].widget.attrs['readonly'] = True
+
+    def clean_foo_field(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            return instance.name
+        else:
+            return self.cleaned_data['name']

@@ -9,4 +9,5 @@ urlpatterns = [
     path('tableau-de-bord/', views.home_view, name="home"),
     path('compte/', views.account_view, name="account"),
     path('boutique/', views.shop_view, name="shop"),
+    path('collection/', views.collection_view, name="collection"),
 ]
