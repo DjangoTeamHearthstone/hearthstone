@@ -1,41 +1,80 @@
 {% extends 'index.html' %}
 
 {% block head %}
-{% load staticfiles %}
-<link rel="stylesheet" href="{% static 'files/shop.css' %}" type="text/css"/>
-<title>Hearthstone - Boutique</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/shop.css' %}" type="text/css"/>
+    <title>Hearthstone - Boutique</title>
 {% endblock %}
 
 {% block body %}
 
-    <h2 class="subtitle">Boutique</h2>
+    {% include "header.html" %}
 
-    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_shop" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Boutique</span>
+                <span class="text_title">Boutique</span>
+            </div>
+        </div>
 
-    <div class="shop_panel">
+        <div id="component_shop" class="component">
+            {% for card in cards %}
 
-        {% for form in listforms %}
-
-            <div class="buy_card">
-
-                <form method="post">
-
-                    <fieldset disabled>
-                        {% csrf_token %}
-
-                        <div class="card">
-                            {{ form }}
-                        </div>
-
-                        <button class="button is-link" type="submit">Acheter</button>
-                    </fieldset>
+            <div class="card">
+                <img src="{{ card.img }}">
+                <form method="POST" id="form_buy">
+                    <button class="studded_btn small_btn"
+                        id="buy_btn"
+                        value="{{ card.id }}"
+                        type="submit">
+                        <span>Acheter</span>
+                    </button>
                 </form>
-
             </div>
 
-        {% endfor %}
+            {% endfor %}
+        </div>
 
+        <div class="pagination">
+            <span class="step-links">
+                {% if cards.has_previous %}
+                    <a href="?page={{ cards.previous_page_number }}">previous</a>
+                {% endif %}
+                {% if cards.has_next %}
+                    <a href="?page={{ cards.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 
+    {% include "footer.html" %}
+
+    <script type="text/javascript">
+        $(document).on('submit', '#form_buy', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: '/boutique/',
+                data:{
+                    id: $(this).find("#buy_btn").val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                },
+                beforeSend: function() {
+                // ... your initialization code here (so show loader) ...
+                },
+                complete: function() {
+                    // ... your finalization code here (hide loader) ...
+                },
+                success:function(){
+                    $( ".msg_card_buy" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    // $( "div.failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    // $( "div.warning" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    location.reload();
+                }
+            })
+        })
+    </script>
 
 {% endblock %}

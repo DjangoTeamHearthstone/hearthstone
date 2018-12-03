@@ -1,97 +1,78 @@
 {% extends 'index.html' %}
 
 {% block head %}
-{% load staticfiles %}
-<link rel="stylesheet" href="{% static 'files/collection.css' %}" type="text/css"/>
-<title>Hearthstone - Collection</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/collection.css' %}" type="text/css"/>
+    <title>Hearthstone - Collection</title>
 {% endblock %}
 
 {% block body %}
 
-    <h2 class="subtitle">Collection</h2>
+    {% include "header.html" %}
 
-    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_collection" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Collection</span>
+                <span class="text_title">Collection</span>
+            </div>
+        </div>
 
-    <!-- <form method="get">
-        <input type="submit" class="button is-link is-rounded" value="Vendre" name="sale_btn">
-    </form> -->
+        <div id="component_collection" class="component">
+            {% for card in cards_user %}
 
-    <!-- <form method="get">
-        <input type="submit" class="button is-link is-rounded" value="Vendre" name="sale_btn">
-        <input type="submit" class="button is-info is-rounded" value="Échanger" name="exchange_btn">
-    </form> -->
-
-    <!-- <div class="collection_panel">
-
-        {% for form in listforms %}
-
-            <div class="frame_card">
-
-                <form method="get">
-
-                    {% csrf_token %}
-
-                    <div class="card">
-                        {{ form }}
-                        <input type="submit" class="formCard" name="{{ form.id.value }}">
-                    </div>
-
+            <div class="card">
+                <img src="{{ card.img }}">
+                <form method="POST" id="form_sell">
+                    <button class="studded_btn small_btn"
+                        id="sell_btn"
+                        value="{{ card.id }}"
+                        type="submit">
+                        <span>Vendre</span>
+                    </button>
                 </form>
-
             </div>
 
-        {% endfor %}
-
-    </div> -->
-
-
-    <div class="collection_panel">
-
-        <form method="get">
-
-            {% for card in cardsUser %}
-
-                <div class="frame_card">
-
-                    <div class="card">
-
-                        <p id="id_name">{{card.name}}</p>
-                        <p id="id_cost">{{card.cost}}</p>
-                        <p id="id_health">{{card.health}}</p>
-                        <p id="id_attack">{{card.attack}}</p>
-                        <p id="id_text">{{card.text}}</p>
-
-                    </div>
-
-                    <input type="checkbox" id="cardSelected" name="cardSelected" value="{{card.id}}">
-                </div>
-
             {% endfor %}
+        </div>
 
-
-            <input type="submit" class="button is-link is-rounded" value="Vendre" name="sale_btn">
-            <input type="submit" class="button is-info is-rounded" value="Échanger" name="exchange_btn">
-        </form>
+        <div class="pagination">
+            <span class="step-links">
+                {% if cards_user.has_previous %}
+                    <a href="?page={{ cards_user.previous_page_number }}">previous</a>
+                {% endif %}
+                {% if cards_user.has_next %}
+                    <a href="?page={{ cards_user.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 
+    {% include "footer.html" %}
 
-
-<script type="text/javascript">
-
-
-document.onreadystatechange = function () {
-  if (document.readyState == "complete") {
-    formcards = document.getElementsByClassName('formCard')
-
-    for(var i = 0 ; i < formcards.length ; i++ ) {
-
-        formcards[i].addEventListener('click', function(event) {
-            this.style.backgroundColor = 'red'
+    <script type="text/javascript">
+        $(document).on('submit', '#form_sell', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: '/collection/',
+                data:{
+                    id: $(this).find("#sell_btn").val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                },
+                beforeSend: function() {
+                // ... your initialization code here (so show loader) ...
+                },
+                complete: function() {
+                    // ... your finalization code here (hide loader) ...
+                },
+                success:function(){
+                    $( ".msg_card_sell" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    location.reload()
+                }
+            })
         })
-    }
-  }
-}
-
-</script>
+    </script>
 
 {% endblock %}

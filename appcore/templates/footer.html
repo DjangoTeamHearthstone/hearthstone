@@ -1,0 +1,26 @@
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/footer.css' %}" type="text/css"/>
+{% endblock %}
+
+<footer>
+    <div id="logout">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit"
+                name="logout_btn"
+                value="logout_btn"
+                class="red_btn small_btn">
+                <span>Deconnexion</span>
+            </button>
+        </form>
+    </div>
+    <div id="return">
+        <button
+            id="return_btn"
+            class="wood_btn small_btn"
+            onclick="window.location= window.location.origin + '/tableau-de-bord'">
+            <span>&nbsp;&nbsp;Accueil</span>
+        </button>
+    </div>
+</footer>

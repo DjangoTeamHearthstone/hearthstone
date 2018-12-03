@@ -1,0 +1,43 @@
+
+/* fonts */
+@font-face {
+	font-family: hearthstone_font;
+	src: url('./../fonts/hearthstone_font.ttf');
+}
+
+#logo {
+    height:100%;
+    width: 50%;
+    background-image: url('./../res/header/hearthstone_logo.png');
+    background-size: auto 75px;
+    background-repeat: no-repeat;
+    filter: grayscale(25%);
+}
+
+#treasury {
+    height:100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+    #img_treasury {
+        height: 45px;
+        width: 45px;
+        background-image: url('./../res/header/treasury.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    #text_treasury {
+        height: 100%;
+        min-width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-family: hearthstone_font;
+        background: linear-gradient(rgb(236, 230, 205), rgb(226, 175, 36));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }

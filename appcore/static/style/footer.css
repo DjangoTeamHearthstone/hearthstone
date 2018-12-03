@@ -1,0 +1,12 @@
+#logout, #return {
+    margin-top: 10px;
+}
+
+#logout form, #return button {
+    margin-top: 0;
+}
+
+#return button span {
+    position: relative;
+    bottom: 2px;
+}

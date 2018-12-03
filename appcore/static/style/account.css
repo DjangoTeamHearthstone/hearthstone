@@ -1,0 +1,23 @@
+#component_account {
+    display: block;
+}
+
+#title_account:before {
+    background-image: url('./../res/titles/title_account.png');
+}
+
+#id_password {
+    display: none;
+}
+
+form {
+    margin-bottom: 25px;
+}
+
+form:nth-child(1) p:nth-child(3) {
+    display: none;
+}
+
+form button {
+    margin-top: 5px;
+}

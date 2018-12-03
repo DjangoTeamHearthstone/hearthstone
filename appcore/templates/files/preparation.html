@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/preparation.css' %}" type="text/css"/>
+    <title>Hearthstone - Préparation</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_fight" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Combat</span>
+                <span class="text_title">Combat</span>
+            </div>
+        </div>
+
+        <div id="component_fight" class="component"></div>
+    </div>
+
+    {% include "footer.html" %}
+
+<!--
+    <h2 class="subtitle">Préparation</h2>
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+
+    <form>
+        <div class="panel_type">
+            <div class="panel_ia">
+                <h2 class="subtitle">Panel IA</h2>
+                <button class="button is-link"
+                    id="ia_btn"
+                    name="ia_btn"
+                    value="ia_btn"
+                    type="submit" disabled>
+                    Combat IA
+                </button>
+            </div>
+
+            <div class="panel_jcj">
+                <h2 class="subtitle">Panel JCJ</h2>
+                <div>
+                    <select name="dropdown" id="dropdown">
+                            <option value="" selected disabled hidden>Choisir Utilisateur</option>
+                        {% for user in users %}
+                            <option value="{{ user.username }}">{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="button is-link"
+                        id="jcj_btn"
+                        name="jcj_btn"
+                        value="jcj_btn"
+                        type="submit" disabled>
+                        Combat JcJ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="deck_panel">
+            {% for deck in decks_user %}
+                <div>
+                    <div>
+                        <div>{{ deck.name }}</div>
+                        <div class="card"></div>
+                        <div>Nb cartes : {{deck.cards|length}}</div>
+                    </div>
+                    {% if deck.cards|length < 30 %}
+                        <div>Ce deck est incomplet</div>
+                    {% endif %}
+                    <input type="radio"
+                        class="deck_checkbox"
+                        name="deck_selected"
+                        value="{{deck.id}}">
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        listCheckbox = document.getElementsByClassName('deck_checkbox')
+        for(i=0;i<listCheckbox.length;i++) {
+            listCheckbox[i].onclick = function(event) {
+                if(this.checked) {
+                    document.getElementById('jcj_btn').removeAttribute('disabled')
+                    document.getElementById('ia_btn').removeAttribute('disabled')
+                } else {
+                    document.getElementById('jcj_btn').setAttribute('disabled', '')
+                    document.getElementById('ia_btn').setAttribute('disabled', '')
+                }
+            }
+        }
+    </script> -->
+
+{% endblock %}

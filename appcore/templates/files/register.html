@@ -1,22 +1,40 @@
 {% extends 'index.html' %}
 
 {% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/register.css' %}" type="text/css"/>
     <title>Hearthstone - Inscription</title>
 {% endblock %}
 
 {% block body %}
 
-    <h2 class="subtitle">Création de compte</h2>
+    <div id="panel_register">
+        <div class="panel_title panel_title_start">
+            <div class="title title_start">
+                <span class="frame_title"></span>
+                <span class="text_title">Creation de compte</span>
+            </div>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
 
-        {{ form.as_p }}
+            {{ form.as_p }}
 
-        <button class="button is-link" type="submit">Valider</button>
-    </form>
+            <button class="cladded_btn" type="submit"
+                onclick="window.location= window.location.origin + '/connexion'">
+                <span>S'inscrire</span>
+            </button>
+        </form>
 
-
-    <a class="button is-info is-outlined" href="/">Accueil</a>
+        <div id="return">
+            <button
+                id="return_btn"
+                class="classical_btn small_btn"
+                onclick="window.location= window.location.origin">
+                <span>Accueil</span>
+            </button>
+        </div>
+    </div>
 
 {% endblock %}

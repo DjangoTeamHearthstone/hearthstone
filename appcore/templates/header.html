@@ -1,0 +1,14 @@
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/header.css' %}" type="text/css"/>
+{% endblock %}
+
+<header id="header">
+
+    <div id="logo" onclick="window.location= window.location.origin + '/tableau-de-bord'"></div>
+
+    <div id="treasury">
+        <div id="img_treasury"></div>
+        <div id="text_treasury">{{ user.profile.treasure }}</div>
+    </div>
+</header>

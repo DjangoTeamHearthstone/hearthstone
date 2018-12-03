@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/forum.css' %}" type="text/css"/>
+    <title>Hearthstone - Forum</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_forum" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Forum</span>
+                <span class="text_title">Forum</span>
+            </div>
+        </div>
+
+        <div id="component_forum" class="component">
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button
+                    class="cladded_btn small_btn"
+                    type="submit"
+                    onclick="window.location= window.location.origin + '/connexion'">
+                    <span>Valider</span>
+                </button>
+            </form>
+
+            {% for post in posts %}
+
+            <div class="panel_post">
+
+                <div class="panel_post_header">
+                    <div>{{post.title}}</div>
+                    <div>{{post.date}} - {{post.user}}</div>
+                </div>
+                <div class="panel_post_content">{{post.content}}</div>
+
+            </div>
+
+        {% endfor %}
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+{% endblock %}

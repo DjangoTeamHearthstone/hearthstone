@@ -1,0 +1,577 @@
+/* fonts */
+@font-face {
+	font-family: hearthstone_font;
+	src: url('./../fonts/hearthstone_font.ttf');
+}
+
+* {
+	font-family: 'Quicksand', sans-serif;
+}
+
+/* general */
+html {
+	background-color: #290F02;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	margin: 0;
+	position: relative;
+	background-image: url('./../res/background/background_hearthstone_nologo.png');
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	z-index: -5;
+}
+
+@media (max-width: 767px) {
+    body {
+    	background-size: 767px 100%;
+    }
+}
+
+body:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	background-image: url('./../res/logo/logo_transparent_hearthstone.png');
+	background-size: 600px 600px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	height:100%;
+	width:100%;
+}
+
+header {
+	width: calc(100% - 30%);
+	display: block;
+	height: 75px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 15% 0 15%;
+	background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 3px 3px 10px black;
+	border-radius: 0 0 10px 10px;
+}
+
+@media (max-width: 767px) {
+    header {
+    	background-image: url('./../res/header/header_768.png');
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    header {
+    	background-image: url('./../res/header/header_1024.png');
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1406px) {
+    header {
+    	background-image: url('./../res/header/header_1407.png');
+    }
+}
+
+@media (min-width: 1407px) {
+    header {
+    	background-image: url('./../res/header/header_1600.png');
+    }
+}
+
+#logo {
+	cursor: pointer;
+}
+
+footer {
+	width: calc(100% - 60%);
+	padding: 0 30% 0 30%;
+	box-shadow: 0 0px 10px 2px rgba(0,0,0,0.8);
+	position: relative;
+	top: 15px;
+	height: 75px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+@media (max-width: 767px) {
+    footer {
+    	background-image: url('./../res/footer/footer_768.png');
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    footer {
+    	background-image: url('./../res/footer/footer_1024.png');
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1406px) {
+    footer {
+    	background-image: url('./../res/footer/footer_1407.png');
+    }
+}
+
+@media (min-width: 1407px) {
+    footer {
+    	background-image: url('./../res/footer/footer_1600.png');
+    }
+}
+
+#logout, #return {
+	width: auto;
+}
+
+#return_btn {
+	margin-top: 15px;
+}
+
+/* btn */
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+
+	width: 176px;
+	height: 67px;
+	background-repeat: no-repeat;
+    background-size: calc(100% * 3) 100%;
+}
+
+button span {
+	user-select: none;
+	padding: 5px;
+	font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+button:hover span {
+	color: #888;
+	background: initial;
+	-webkit-background-clip: initial;
+	-webkit-text-fill-color: initial;
+}
+
+.cladded_btn {
+    background-image: url('./../res/buttons/button_hearthstone_1.png');
+}
+
+.studded_btn {
+    background-image: url('./../res/buttons/button_hearthstone_2.png');
+}
+
+.classical_btn {
+    background-image: url('./../res/buttons/button_hearthstone_3.png');
+}
+
+.gold_btn {
+    background-image: url('./../res/buttons/button_hearthstone_4.png');
+}
+
+.red_btn {
+    background-image: url('./../res/buttons/button_hearthstone_5.png');
+}
+
+.wood_btn {
+	background-image: url('./../res/buttons/button_hearthstone_6.png');
+	position: relative;
+	right: 5px;
+}
+
+.small_btn {
+    height: 60px;
+    width: 155px;
+}
+
+.red_btn span {
+	position: relative;
+	bottom: 3px;
+	font-size: 14px;
+}
+
+.red_btn:hover span {
+	color: rgb(100, 27, 27);
+	background: initial;
+	-webkit-background-clip: initial;
+	-webkit-text-fill-color: initial;
+}
+
+.red_btn:hover span {
+	color: rgb(124, 29, 49);
+	background: initial;
+	-webkit-background-clip: initial;
+	-webkit-text-fill-color: initial;
+}
+
+/* page */
+.container {
+	margin: 0 auto;
+    width: 75%;
+    max-width: 950px;
+}
+
+.component {
+	min-height: 555px;
+	margin-top: 200px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+}
+
+/* form */
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+	align-items: center;
+	margin-top: 15px;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 15px 0;
+}
+
+input:not([type='checkbox']), select, datalist, option {
+	width: 170px;
+	height: 25px;
+	background-color: transparent;
+	border: none;
+	padding: 5px 8px;
+	background-color: rgba(211,211,211, 0.4);
+	background-image: url('./../res/form/input.png');
+	background-size: 100% 100%;
+	border-radius: 5px;
+}
+
+input[type='checkbox'] {
+	height: 15px;
+	width: 15px;
+	background-color: red;
+}
+
+select {
+	width: 186px;
+	height: 35px;
+}
+
+input:not([type='checkbox']):focus,
+select:focus,
+textarea:focus {
+	background-color: rgba(211,211,211, 0.8);
+	outline: none;
+}
+
+input:not([type='checkbox']), select, datalist {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+input:not([type='checkbox'])::-webkit-calendar-picker-indicator {
+	display: none;
+}
+
+#name_deck * {
+	background-color: transparent;
+}
+
+.helptext {
+    display: none;
+}
+
+form ul {
+	display: none;
+}
+
+textarea {
+	border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+	resize: none;
+	background-color: rgba(211,211,211, 0.4);
+}
+
+/* panel */
+.group_panel {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width:auto;
+	margin-top: 25px;
+}
+
+.panel:before {
+	content: '';
+	position: absolute;
+	z-index: 3;
+	display: block;
+	height:340px;
+	width:240px;
+	margin: 5px 0 0 5px;
+	border-radius: 10px;
+    filter: grayscale(80%);
+    transition: all ease-in 0.1s;
+    box-shadow: 3px 3px 10px black;
+}
+
+.panel:hover:before {
+	filter: grayscale(0%);
+}
+
+.panel {
+	position: relative;
+	background-repeat: no-repeat;
+    background-size: 100% 100%;
+	height:350px;
+	width:250px;
+	margin-top:20px;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+
+.panel:hover .small_btn {
+	background-position: calc(155px * -1);
+}
+
+.panel:hover .small_btn span {
+	color: #888;
+	background: initial;
+	-webkit-background-clip: initial;
+	-webkit-text-fill-color: initial;
+}
+
+.panel:after {
+	content: '';
+	position: absolute;
+	z-index: 5;
+	display: block;
+	background-image: url('./../res/panels/frame_panel.png');
+	height:350px;
+	width:250px;
+}
+
+.btn_panel {
+	position: absolute;
+	bottom: -20px;
+	left: 48px;
+	z-index: 10;
+}
+
+/* title */
+.panel_title {
+	margin-top: 25px;
+	height:185px;
+	position: absolute;
+	top: 0;
+    left: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.panel_title_start {
+	margin-top: 0;
+	position: relative;
+    left: auto;
+    height: auto;
+}
+
+.img_title:before {
+	content: '';
+	position: absolute;
+	z-index: 3;
+	display: block;
+	margin-left: 5px;
+	margin-top: 5px;
+	border-radius: 20px;
+	height:calc(185px / 1.2);
+	width:calc(165px / 1.2);
+	background-size: 100% 100%;
+}
+
+.img_title {
+	height: 200px;
+	width: 200px;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+}
+
+.img_title:after {
+	content: '';
+	position: absolute;
+	z-index: 5;
+	display: block;
+	background-image: url('./../res/titles/frame_title.png');
+	height:calc(200px / 1.2);
+	width:calc(200px / 1.2);
+	background-size: 100% 100%;
+}
+
+.title {
+	height: 70px;
+	margin-top: 5px;
+	overflow: visible;
+	width: calc(100% - 200px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom:-25px;
+}
+
+@media (max-width: 1023px) {
+    .title {
+		background-image: url('./../res/titles/title_text_768.png');
+		width: 340px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1406px) {
+    .title {
+		background-image: url('./../res/titles/title_text_1024.png');
+		width: 515px;
+    }
+}
+
+@media (min-width: 1407px) and (max-width: 1600px) {
+    .title {
+		width: 785px;
+    	background-image: url('./../res/titles/title_text_1407.png');
+    }
+}
+
+@media (min-width: 1600px) {
+    .title {
+		width: 920px;
+    	background-image: url('./../res/titles/title_text_1600.png');
+    }
+}
+
+.title_start {
+	bottom: 0;
+	width: 515px;
+	position: relative;
+	background-image: url('./../res/titles/title_text_1024.png');
+}
+
+.frame_title {
+	display: block;
+	font-family: hearthstone_font;
+	font-size: 20px;
+	position: absolute;
+	top: 25px;
+	user-select: none;
+	text-shadow: 2px 0 0 #755440, -2px 0 0 #755440, 0 2px 0 #755440,
+	0 -2px 0 #755440, 1px 1px #755440, -1px -1px 0 #755440,
+	1px -1px 0 #755440, -1px 1px 0 #755440;
+}
+
+.text_title{
+	position: relative;
+	z-index: 5;
+	font-family: hearthstone_font;
+	font-size: 20px;
+	background: radial-gradient(rgb(235, 222, 175), rgb(231, 188, 45));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	padding: 5px 5px;
+}
+
+/* card */
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.card img {
+	width: 205px;
+	height: 310px;
+}
+
+.card form {
+	margin: 0;
+	margin-bottom: 20px;
+}
+
+/* messages */
+.alert-box {
+	vertical-align: middle;
+	text-align: center;
+    border: 1px solid transparent;
+    display: none;
+    position: fixed;
+    z-index: 10;
+    top: calc(50% - 125px);
+	right: calc(50% - 175px);
+	width: 350px;
+	height: 250px;
+	line-height: 250px;
+}
+
+.msg_card_buy, .msg_deck_created,
+.msg_card_added {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.msg_card_sell {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.msg_deck_exists, .msg_4_decks,
+.msg_30_cards, .msg_twice_card,
+.msg_alone_card {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}

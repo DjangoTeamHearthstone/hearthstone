@@ -1,0 +1,251 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/create-deck.css' %}" type="text/css"/>
+    <title>Hearthstone - Création de Deck</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div id="panel_deck">
+        <input id="name_deck"
+            list="name_deck"
+            name="name_deck"
+            placeholder="Nom du Deck">
+            <datalist id="name_deck">
+                <option value="Internet Explorer">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari">
+            </datalist>
+        <div id="deck" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id="img_deck"></div>
+        </div>
+        <div id="nb_card"></div>
+        <div id="save_deck"></div>
+    </div>
+
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_deck" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Creer un Deck</span>
+                <span class="text_title">Creer un Deck</span>
+            </div>
+        </div>
+
+        <div id="component_deck" class="component">
+            {% for card in cards_user %}
+
+            <div class="card" draggable="true" ondragstart="drag(event)">
+                <img src="{{ card.img }}" value="{{ card.id }}">
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if cards_user.has_previous %}
+                    <a href="?page={{ cards_user.previous_page_number }}">previous</a>
+                {% endif %}
+                {% if cards_user.has_next %}
+                    <a href="?page={{ cards_user.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+    <script type="text/javascript">
+        let nb_cards
+        // if nb_cards doesn t exist
+        if(sessionStorage.getItem('nb_cards')) {
+            nb_cards = parseInt(sessionStorage.getItem('nb_cards'))
+            $('#nb_card').html(nb_cards)
+        }
+        // if deck_created rename input
+        if(sessionStorage.getItem('deck_created')) {
+            $('#name_deck').val(sessionStorage.getItem('deck_created'))
+        }
+        // drag and drop
+        let el_dragged
+        function allowDrop(ev) {
+            ev.preventDefault()
+        }
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id)
+            el_dragged = ev.target.getAttribute('value')
+        }
+        function drop(ev) {
+            ev.preventDefault()
+            // let data = ev.dataTransfer.getData('text')
+            if(sessionStorage.getItem('deck_created')) {
+                ev.preventDefault()
+                $.ajax({
+                    type: 'POST',
+                    url: '/creation-de-deck/',
+                    data:{
+                        card_to_deck: el_dragged,
+                        deck_created: sessionStorage.getItem('deck_created'),
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                    // ... your initialization code here (so show loader) ...
+                    },
+                    complete: function() {
+                        // ... your finalization code here (hide loader) ...
+                    },
+                    success: function (data) {
+                        if (data.failed == 'alone_card') {
+                            $( ".msg_alone_card" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else if (data.failed == 'fail_30_cards') {
+                            $( ".msg_30_cards" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else if (data.failed == 'twice_card') {
+                            $( ".msg_twice_card" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else {
+                            nb_cards += 1
+                            sessionStorage.setItem('nb_cards', nb_cards)
+                            $('#nb_card').html(nb_cards)
+                            $( ".msg_card_added" ).fadeIn( 300 ).delay( 1000 ).fadeOut( 400 )
+                            sessionStorage.setItem('deck_created', $('#name_deck').val())
+                        }
+                    }
+                })
+            }
+        }
+        // display deck_panel
+        function display_panel() {
+            if($(this).attr('activate')) {
+                $(this).css('left', '0')
+                $(this).removeAttr('activate')
+                $('#img_deck').css('display', 'block')
+            } else {
+                $(this).css('left', '-150px')
+                $(this).attr('activate', true)
+                $('#img_deck').css('display', 'none')
+            }
+        }
+        $('#panel_deck').on('click', display_panel)
+        // input click
+        $('#panel_deck input').click(function(e) {
+            e.stopPropagation()
+        })
+        // save_deck
+        $('#save_deck').click(function(e) {
+            e.stopPropagation()
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: '/creation-de-deck/',
+                data:{
+                    name_deck: $('#name_deck').val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                },
+                dataType: 'json',
+                beforeSend: function() {
+                // ... your initialization code here (so show loader) ...
+                },
+                complete: function() {
+                    // ... your finalization code here (hide loader) ...
+                },
+                success: function (data) {
+                    if (data.failed == 'fail_4_decks') {
+                        $( ".msg_4_decks" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                    } else if(data.failed == 'fail_deck_exists') {
+                        $( ".msg_deck_exists" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                    } else {
+                        $( ".msg_deck_created" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        sessionStorage.clear()
+                        sessionStorage.setItem('deck_created', $('#name_deck').val())
+                        $('#nb_card').html(null)
+                        nb_cards = 0
+                    }
+                }
+            })
+        })
+    </script>
+
+    <!-- <h2 class="subtitle">Collection</h2>
+    <p>Trésorerie : {{ user.profile.treasure }}</p>
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+    {% if messages %} {% for message in messages %}
+        <div class="{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <form method="get">
+        <div>
+            <button class="button is-link"
+                id="create_deck"
+                name="create_deck"
+                value="create_deck"
+                type="submit"
+                disabled>
+                Créer Deck
+            </button>
+            <label for="name_deck">Nom du Deck</label>
+            <input type="text" name="name_deck" placeholder="Nom du Deck" value="Nom du Deck"/>
+        </div>
+        <div class="card_panel">
+            {% for card in cards_user %}
+                <div class="frame_card">
+                    <div class="card">
+                        <p id="id_name">{{card.name}}</p>
+                        <p id="id_cost">{{card.cost}}</p>
+                        <p id="id_health">{{card.health}}</p>
+                        <p id="id_attack">{{card.attack}}</p>
+                        <p id="id_text">{{card.text|striptags}}</p>
+                    </div>
+                    <input type="checkbox"
+                        class="card_checkbox"
+                        name="cards_selected"
+                        value="{{card.id}}">
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+
+<script type="text/javascript">
+    nbChecked = 0
+    createBtn = document.getElementById('create_deck')
+    array = document.getElementsByClassName('card_checkbox')
+    for( i = 0 ; i < array.length ; i++ ){
+        el = array[i]
+        if (el.checked) {
+            nbChecked += 1
+        }
+        if (nbChecked === 3) {
+            createBtn.removeAttribute('disabled');
+        } else {
+            if (!createBtn.hasAttribute('disabled')) {
+                createBtn.setAttribute('disabled', '');
+            }
+        }
+        el.addEventListener('click', function() {
+            if (nbChecked < 0) {
+                nbChecked = 0
+            }
+            if (this.checked) {
+                nbChecked += 1
+            } else {
+                nbChecked -= 1
+            }
+            if (nbChecked === 30) {
+                return createBtn.removeAttribute('disabled');
+            } else {
+                if (!createBtn.hasAttribute('disabled')) {
+                    return createBtn.setAttribute('disabled', '');
+                }
+            }
+        })
+    }
+</script> -->
+
+{% endblock %}

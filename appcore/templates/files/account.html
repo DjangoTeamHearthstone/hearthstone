@@ -1,32 +1,54 @@
 {% extends 'index.html' %}
 
 {% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/account.css' %}" type="text/css"/>
     <title>Hearthstone - Mon compte</title>
 {% endblock %}
 
 {% block body %}
 
-    <h2 class="subtitle">Mon compte</h2>
+    {% include "header.html" %}
 
-    <p>Utilisateur : {{ user.username }}</p>
-    <p>Adresse mail : {{ user.email }}</p>
+    <div class="container">
 
-    <form method="post">
-        {% csrf_token %}
+        <div class="panel_title">
+            <div id="title_account" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Mon compte</span>
+                <span class="text_title">Mon compte</span>
+            </div>
+        </div>
 
-        {{ form_user.as_p }}
+        <div id="component_account" class="component">
+            <form method="post">
+                {% csrf_token %}
 
-        <button class="button is-link" type="submit">Valider</button>
-    </form>
+                {{ form_user.as_p }}
 
-    <form method="post">
-        {% csrf_token %}
+                <button
+                    class="cladded_btn small_btn"
+                    type="submit"
+                    onclick="window.location= window.location.origin + '/connexion'">
+                    <span>Valider</span>
+                </button>
+            </form>
 
-        {{ form_password.as_p }}
+            <form method="post">
+                {% csrf_token %}
 
-        <button class="button is-link" type="submit">Valider</button>
-    </form>
+                {{ form_password.as_p }}
 
-    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+                <button
+                    class="classical_btn small_btn"
+                    type="submit"
+                    onclick="window.location= window.location.origin + '/connexion'">
+                    <span>Valider</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
 
 {% endblock %}

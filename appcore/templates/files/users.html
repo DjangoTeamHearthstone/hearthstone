@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/users.css' %}" type="text/css"/>
+    <title>Hearthstone - Utilisateurs</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div class="container">
+        <div class="panel_title">
+            <div id="title_users" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Utilisateurs</span>
+                <span class="text_title">Utilisateurs</span>
+            </div>
+        </div>
+
+        <form method="GET" id="form_users">
+            <select name="user" id="user">
+                    <option value="" selected disabled hidden>Choisir Utilisateur</option>
+                {% for user in users %}
+                    <option value="{{ user.username }}">
+                        {{ user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <div id="component_users" class="component">
+            {% for card in cards_user %}
+            <div class="card">
+                <img src="{{ card.img }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+    <script type="text/javascript">
+        url = new URL(window.location.href)
+        if (url.searchParams.get('user') != null)
+            document.getElementById('user').value = url.searchParams.get('user')
+        $('#user').on('change', function(e) {
+            $('#form_users').submit()
+        })
+    </script>
+
+{% endblock %}

@@ -1,16 +1,34 @@
 {% extends 'index.html' %}
 
 {% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/welcome.css' %}" type="text/css"/>
     <title>Hearthstone - Bienvenue</title>
 {% endblock %}
 
 {% block body %}
 
-    <h1 class="title">Bienvenue sur Heartstone</h1>
+    <div id="panel_welcome">
 
-    <div>
-        <a class="button is-info is-rounded is-outlined" href="/connexion">Se connecter</a>
-        <a class="button is-link" href="/inscription">Créer un compte</a>
+        <div class="panel_title panel_title_start">
+            <div class="title title_start">
+                <span class="frame_title">Bienvenue sur Hearthstone</span>
+                <span class="text_title">Bienvenue sur Hearthstone</span>
+            </div>
+        </div>
+
+        <div class="group_btn">
+            <button class="cladded_btn"
+                onclick="window.location= window.location.origin + '/connexion'">
+                <span>Se connecter</span>
+            </button>
+            <button
+                class="cladded_btn"
+                onclick="window.location= window.location.origin + '/inscription'">
+                <span>S'inscrire</span>
+            </button>
+        </div>
+
     </div>
 
 {% endblock %}

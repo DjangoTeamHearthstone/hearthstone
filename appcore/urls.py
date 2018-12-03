@@ -10,4 +10,10 @@ urlpatterns = [
     path('compte/', views.account_view, name="account"),
     path('boutique/', views.shop_view, name="shop"),
     path('collection/', views.collection_view, name="collection"),
+    path('utilisateurs/', views.user_view, name="utilisateurs"),
+    path('creation-de-deck/', views.create_deck_view, name="create-deck"),
+    path('echanger/', views.exchange_view, name="exchange"),
+    path('forum/', views.forum_view, name="forum"),
+    path('preparation/', views.preparation_view, name="preparation"),
+    path('combat/', views.fight_view, name="fight"),
 ]

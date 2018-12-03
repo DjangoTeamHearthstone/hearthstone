@@ -1,0 +1,71 @@
+.panel_fight {
+    background-color: lightblue;
+    position: relative;
+    width: 100%;
+    min-width: 900px;
+}
+
+    .panel_background_user, .panel_background_ia {
+        background-color: purple;
+        width: 100%;
+        height: 210px;
+        border-bottom: 1px solid black;
+        display: none;
+    }
+
+    .panel_background_user .frame_card,
+    .panel_background_ia .frame_card {
+        display: none;
+    }
+
+    .panel_user, .panel_ia,
+    .panel_ground_ia, .panel_ground_user {
+        background-color: pink;
+        border-bottom: 1px solid black;
+        display: flex;
+        width: 100%;
+        height: 210px;
+    }
+
+    .panel_hand_user, .panel_hand_ia {
+        background-color: lightgreen;
+        position: relative;
+        width: calc(100% - 150px);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 4;
+    }
+
+        .panel_hand_ia .card p,
+        .panel_hand_ia #id_health,
+        .panel_hand_ia #id_cost,
+        .panel_hand_ia #id_attack {
+            visibility: hidden;
+        }
+
+        .panel_hand_ia .card {
+            background-color: grey;
+        }
+
+    .frame_card {
+        z-index: 5;
+        margin:0;
+        position: relative;
+        left: 0;
+        right: -200px;
+    }
+
+    .card {
+        margin: 0;
+    }
+
+    .panel_deck_user, .panel_deck_ia {
+        width: 150px;
+        background-color: orange;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }

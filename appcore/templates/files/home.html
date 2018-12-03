@@ -1,31 +1,137 @@
 {% extends 'index.html' %}
 
 {% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/home.css' %}" type="text/css"/>
     <title>Hearthstone - Tableau de bord</title>
+    <script src="{% static 'scripts/jquery.js' %}"></script>
 {% endblock %}
 
 {% block body %}
 
-    <h2 class="subtitle">Tableau de bord</h2>
+    {% include "header.html" %}
 
-    <p>Trésorerie : {{ user.profile.treasure }}</p>
+    <div class="container">
+        <div class="panel_title panel_title_start">
+            <div class="title title_start">
+                <span class="frame_title">Tableau de Bord</span>
+                <span class="text_title">Tableau de Bord</span>
+            </div>
+        </div>
 
-    {% for card in cardsUser %}
+        <div class="group_panel">
+            <div id="panel_account"
+                class="panel"
+                onclick="window.location= window.location.origin + '/compte'">
+                <button class="btn_panel cladded_btn small_btn"><span>Compte</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_shop"
+                class="panel"
+                onclick="window.location= window.location.origin + '/boutique'">
+                <button class="btn_panel cladded_btn small_btn"><span>Boutique</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_collection"
+                class="panel"
+                onclick="window.location= window.location.origin + '/collection'">
+                <button class="btn_panel cladded_btn small_btn"><span>Collection</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_users"
+                class="panel"
+                onclick="window.location= window.location.origin + '/utilisateurs'">
+                <button class="btn_panel cladded_btn small_btn"><span>Utilisateurs</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_deck"
+                class="panel"
+                onclick="window.location= window.location.origin + '/creation-de-deck'">
+                <button class="btn_panel cladded_btn small_btn"><span>Creer un Deck</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_exchange"
+                class="panel"
+                onclick="window.location= window.location.origin + '/echanger'">
+                <button class="btn_panel cladded_btn small_btn"><span>Échanger</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_forum"
+                class="panel"
+                onclick="window.location= window.location.origin + '/forum'">
+                <button class="btn_panel cladded_btn small_btn"><span>Forum</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+            <div id="panel_fight"
+                class="panel"
+                onclick="window.location= window.location.origin + '/preparation'">
+                <button class="btn_panel cladded_btn small_btn"><span>Combat</span></button>
+                <div class="img_panel">
+                </div>
+            </div>
+        </div>
 
-        <p>Card Name: {{ card.name }}</p>
+        {% if exchanges %}
+            {% for t in zipped %}
+            <form id="form_exchange" method='POST'>
+                {% csrf_token %}
+                <div>
+                    <div class="panel_exchanges">
+                        <div class="panel_exchange">
+                            <div class="user_exchange">{{ t.0 }}</div>
+                            <div class="panel_cards">
+                                {% for card in t.1 %}
+                                <div class="card">
+                                    <img src="{{ card.img }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="panel_exchange">
+                            <div class="user_exchange">{{ user.get_username }}</div>
+                            <div class="panel_cards">
+                                {% for card in t.2 %}
+                                <div class="card">
+                                    <img src="{{ card.img }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel_exchange_btn">
+                        <button class="cladded_btn small_btn"
+                            name="accept_btn"
+                            value="{{t.3}}"
+                            type="submit">
+                            <span>Accepter</span>
+                        </button>
+                        <button class="classical_btn small_btn"
+                            name="refuse_btn"
+                            value="{{t.3}}"
+                            type="submit">
+                            <span>Refuser</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+        {% endif %}
+    </div>
 
-    {% endfor %}
+    {% include "footer.html" %}
 
-    <a class="button is-link is-rounded" href="/compte/">Mon compte</a>
 
-    <a class="button is-info is-rounded" href="/boutique/">Boutique</a>
-
-    <a class="button is-link" href="/collection/">Collection</a>
-
-    <form method="post">
-        {% csrf_token %}
-
-        <button class="button is-danger is-outlined" type="submit">Déconnexion</button>
-    </form>
+    <script type="text/javascript">
+        if ( $( "#form_exchange" ).length ) {
+            $( "body" ).css('overflow-y', 'hidden')
+        }
+    </script>
 
 {% endblock %}
