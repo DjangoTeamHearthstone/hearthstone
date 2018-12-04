@@ -19,123 +19,75 @@
             </div>
         </div>
 
-        <form method="GET" id="form_users">
-            <select name="user" id="user">
-                    <option value="" selected disabled hidden>Choisir Utilisateur</option>
-                {% for user in users %}
-                    <option value="{{ user.username }}">
-                        {{ user.username }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
-
-        <form id="component_exchange" class="component" method="GET">
-
-            <div>
-                <button class="classical_btn small_btn"
-                    id="exchange_btn"
-                    name="exchange_btn"
-                    value="exchange_btn"
-                    type="submit">
-                    <span>Échanger</span>
-                </button>
-            </div>
-
-            <div>
-                <div class="panel_creator">
-                    <div id="username">{{user.get_username}}</div>
-                    <div>
-                        {% for card in cards_user %}
-                            <div class="card">
-                                <img src="{{ card.img }}">
-                                <input type="checkbox"
-                                    class="card_creator_checkbox"
-                                    name="cards_creator_selected"
-                                    value="{{card.id}}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="panel_assignee">
-                    <div id="assignee"></div>
-                    <div>
-                        {% for card in cards_assignee %}
-                            <div class="card">
-                                <img src="{{ card.img }}">
-                                <input type="checkbox"
-                                    class="card_assignee_checkbox"
-                                    name="cards_assignee_selected"
-                                    value="{{card.id}}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% csrf_token %}
-        </form>
+        <div id="component_exchange" class="component"></div>
     </div>
 
     {% include "footer.html" %}
 
+<!--
+    <h2 class="subtitle">Échanger</h2>
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+    <form>
+        <select name="dropdown" id="dropdown">
+                <option value="" selected disabled hidden>Choisir Utilisateur</option>
+            {% for user in users %}
+                <option value="{{ user.username }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <button class="button is-link is-rounded buy_btn" type="submit" name="seebtn" value="voir">Voir Collection</button>
+
+        <button class="button is-link"
+            id="card_btn"
+            name="card_btn"
+            value="card_btn"
+            type="submit">
+            Échanger Cartes
+        </button>
+
+        <div class="all_panels">
+            <div class="panel_creator">
+                {% for card in cards_creator %}
+                    <div class="frame_card">
+                        <div class="card">
+                            <p id="id_name">{{card.name}}</p>
+                            <p id="id_cost">{{card.cost}}</p>
+                            <p id="id_health">{{card.health}}</p>
+                            <p id="id_attack">{{card.attack}}</p>
+                            <p id="id_text">{{card.text |striptags }}</p>
+                        </div>
+                        <input type="checkbox"
+                            class="card_creator_checkbox"
+                            name="cards_creator_selected"
+                            value="{{card.id}}">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="panel_assignee">
+                {% for card in cards_assignee %}
+                    <div class="frame_card">
+                        <div class="card">
+                            <p id="id_name">{{card.name}}</p>
+                            <p id="id_cost">{{card.cost}}</p>
+                            <p id="id_health">{{card.health}}</p>
+                            <p id="id_attack">{{card.attack}}</p>
+                            <p id="id_text">{{card.text|striptags}}</p>
+                        </div>
+                        <input type="checkbox"
+                            class="card_assignee_checkbox"
+                            name="cards_assignee_selected"
+                            value="{{card.id}}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+
     <script type="text/javascript">
         url = new URL(window.location.href)
-        if (url.searchParams.get('user') != null)
-            document.getElementById('user').value = url.searchParams.get('user')
-            $('#assignee').html(url.searchParams.get('user'))
-
-        $('#user').on('change', function(e) {
-            $('#form_users').submit()
-        })
-    </script>
-
-    <!-- <form method='post'>
-                <button class="button is-link"
-                    id="card_btn"
-                    name="card_btn"
-                    value="card_btn"
-                    type="submit">
-                    Échanger Cartes
-                </button>
-
-                <div class="all_panels">
-                    <div class="panel_creator">
-                        {% for card in cards_creator %}
-                            <div class="frame_card">
-                                <div class="card">
-                                    <p id="id_name">{{card.name}}</p>
-                                    <p id="id_cost">{{card.cost}}</p>
-                                    <p id="id_health">{{card.health}}</p>
-                                    <p id="id_attack">{{card.attack}}</p>
-                                    <p id="id_text">{{card.text |striptags }}</p>
-                                </div>
-                                <input type="checkbox"
-                                    class="card_creator_checkbox"
-                                    name="cards_creator_selected"
-                                    value="{{card.id}}">
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="panel_assignee">
-                        {% for card in cards_assignee %}
-                            <div class="frame_card">
-                                <div class="card">
-                                    <p id="id_name">{{card.name}}</p>
-                                    <p id="id_cost">{{card.cost}}</p>
-                                    <p id="id_health">{{card.health}}</p>
-                                    <p id="id_attack">{{card.attack}}</p>
-                                    <p id="id_text">{{card.text|striptags}}</p>
-                                </div>
-                                <input type="checkbox"
-                                    class="card_assignee_checkbox"
-                                    name="cards_assignee_selected"
-                                    value="{{card.id}}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </form> -->
+        if (url.searchParams.get('dropdown') != null)
+            document.getElementById('dropdown').value = url.searchParams.get("dropdown")
+    </script> -->
 
 {% endblock %}

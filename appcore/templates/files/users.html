@@ -19,35 +19,48 @@
             </div>
         </div>
 
-        <form method="GET" id="form_users">
-            <select name="user" id="user">
-                    <option value="" selected disabled hidden>Choisir Utilisateur</option>
-                {% for user in users %}
-                    <option value="{{ user.username }}">
-                        {{ user.username }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
-
-        <div id="component_users" class="component">
-            {% for card in cards_user %}
-            <div class="card">
-                <img src="{{ card.img }}">
-            </div>
-            {% endfor %}
-        </div>
+        <div id="component_users" class="component"></div>
     </div>
 
     {% include "footer.html" %}
 
+<!--
+    <h2 class="subtitle">Utilisateur</h2>
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+    <form method="get">
+        <select name="dropdown" id="dropdown">
+                <option value="" selected disabled hidden>Choisir Utilisateur</option>
+            {% for user in users %}
+                <option value="{{ user.username }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <button class="button is-link is-rounded buy_btn"
+            type="submit"
+            name="seebtn"
+            value="voir">
+            Voir Collection
+        </button>
+    </form>
+
+    <div class="card_panel">
+        {% for card in cards_user %}
+            <div class="frame_card">
+                <div class="card">
+                    <p id="id_name">{{card.name}}</p>
+                    <p id="id_cost">{{card.cost}}</p>
+                    <p id="id_health">{{card.health}}</p>
+                    <p id="id_attack">{{card.attack}}</p>
+                    <p id="id_text">{{card.text|striptags}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <script type="text/javascript">
         url = new URL(window.location.href)
-        if (url.searchParams.get('user') != null)
-            document.getElementById('user').value = url.searchParams.get('user')
-        $('#user').on('change', function(e) {
-            $('#form_users').submit()
-        })
-    </script>
+        if (url.searchParams.get('dropdown') != null)
+            document.getElementById('dropdown').value = url.searchParams.get("dropdown")
+    </script> -->
 
 {% endblock %}

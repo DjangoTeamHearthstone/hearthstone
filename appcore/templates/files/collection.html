@@ -19,60 +19,61 @@
             </div>
         </div>
 
-        <div id="component_collection" class="component">
-            {% for card in cards_user %}
-
-            <div class="card">
-                <img src="{{ card.img }}">
-                <form method="POST" id="form_sell">
-                    <button class="studded_btn small_btn"
-                        id="sell_btn"
-                        value="{{ card.id }}"
-                        type="submit">
-                        <span>Vendre</span>
-                    </button>
-                </form>
-            </div>
-
-            {% endfor %}
-        </div>
-
-        <div class="pagination">
-            <span class="step-links">
-                {% if cards_user.has_previous %}
-                    <a href="?page={{ cards_user.previous_page_number }}">previous</a>
-                {% endif %}
-                {% if cards_user.has_next %}
-                    <a href="?page={{ cards_user.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
+        <div id="component_collection" class="component"></div>
     </div>
 
     {% include "footer.html" %}
 
-    <script type="text/javascript">
-        $(document).on('submit', '#form_sell', function(e) {
-            e.preventDefault()
-            $.ajax({
-                type: 'POST',
-                url: '/collection/',
-                data:{
-                    id: $(this).find("#sell_btn").val(),
-                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-                },
-                beforeSend: function() {
-                // ... your initialization code here (so show loader) ...
-                },
-                complete: function() {
-                    // ... your finalization code here (hide loader) ...
-                },
-                success:function(){
-                    $( ".msg_card_sell" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    location.reload()
-                }
-            })
-        })
-    </script>
+    <!-- <h2 class="subtitle">Collection</h2>
+    <p>Trésorerie : {{ user.profile.treasure }}</p>
+    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
+
+    <div class="deck_panel">
+        {% for deck in decks_user %}
+            <form method="get">
+                <div>
+                    <div>{{ deck.name }}</div>
+                    <div class="card"></div>
+                    <div>Coût : {{ deck.cost }}</div>
+                    <div>Nb cartes : {{deck.cards|length}}</div>
+                </div>
+                {% if deck.cards|length < 30 %}
+                    <div>Ce deck est incomplet</div>
+                {% endif %}
+                <button class="button is-link"
+                    name="deck_btn"
+                    value="deck_{{deck.id}}">
+                    Vendre
+                </button>
+            </form>
+        {% endfor %}
+    </div>
+
+    <form>
+        <button class="button is-link"
+            id="card_btn"
+            name="card_btn"
+            value="card_btn"
+            type="submit">
+            Vendre Cartes
+        </button>
+        <div class="card_panel">
+        {% for card in cards_user %}
+            <div class="frame_card">
+                <div class="card">
+                    <p id="id_name">{{card.name}}</p>
+                    <p id="id_cost">{{card.cost}}</p>
+                    <p id="id_health">{{card.health}}</p>
+                    <p id="id_attack">{{card.attack}}</p>
+                    <p id="id_text">{{card.text|striptags }}</p>
+                </div>
+                <input type="checkbox"
+                    class="card_checkbox"
+                    name="cards_selected"
+                    value="{{card.id}}">
+            </div>
+        {% endfor %}
+        </div>
+    </form> -->
 
 {% endblock %}

@@ -24,11 +24,8 @@
 
             <div class="card">
                 <img src="{{ card.img }}">
-                <form method="POST" id="form_buy">
-                    <button class="studded_btn small_btn"
-                        id="buy_btn"
-                        value="{{ card.id }}"
-                        type="submit">
+                <form method="post">
+                    <button class="studded_btn small_btn" value="{{ card.id}}">
                         <span>Acheter</span>
                     </button>
                 </form>
@@ -40,10 +37,17 @@
         <div class="pagination">
             <span class="step-links">
                 {% if cards.has_previous %}
+                    <!-- <a href="?page=1">&laquo; first</a> -->
                     <a href="?page={{ cards.previous_page_number }}">previous</a>
                 {% endif %}
+
+                <!-- <span class="current">
+                    {{ cards.number }} sur {{ cards.paginator.num_pages }}.
+                </span> -->
+
                 {% if cards.has_next %}
                     <a href="?page={{ cards.next_page_number }}">next</a>
+                    <!-- <a href="?page={{ cards.paginator.num_pages }}">last &raquo;</a> -->
                 {% endif %}
             </span>
         </div>
@@ -51,30 +55,49 @@
 
     {% include "footer.html" %}
 
-    <script type="text/javascript">
-        $(document).on('submit', '#form_buy', function(e) {
-            e.preventDefault()
-            $.ajax({
-                type: 'POST',
-                url: '/boutique/',
-                data:{
-                    id: $(this).find("#buy_btn").val(),
-                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-                },
-                beforeSend: function() {
-                // ... your initialization code here (so show loader) ...
-                },
-                complete: function() {
-                    // ... your finalization code here (hide loader) ...
-                },
-                success:function(){
-                    $( ".msg_card_buy" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    // $( "div.failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    // $( "div.warning" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    location.reload();
-                }
-            })
-        })
-    </script>
+<!--
+    <div class="deck_panel">
+        {% for deck in decks_origin %}
+            <form method="get">
+                <div>
+                    <div>{{ deck.name }}</div>
+                    <div class="card"></div>
+                    <div>Coût : {{ deck.cost }}</div>
+                </div>
+                <button class="button is-link"
+                    name="deck_btn"
+                    value="deck_{{deck.id}}">
+                    Acheter
+                </button>
+            </form>
+        {% endfor %}
+    </div>
+
+    <form>
+        <button class="button is-link"
+            id="card_btn"
+            name="card_btn"
+            value="card_btn"
+            type="submit">
+            Acheter Cartes
+        </button>
+        <div class="card_panel">
+        {% for card in cards_origin %}
+            <div class="frame_card">
+                <div class="card">
+                    <p id="id_name">{{card.name}}</p>
+                    <p id="id_cost">{{card.cost}}</p>
+                    <p id="id_health">{{card.health}}</p>
+                    <p id="id_attack">{{card.attack}}</p>
+                    <p id="id_text">{{card.text |striptags }}</p>
+                </div>
+                <input type="checkbox"
+                    class="card_checkbox"
+                    name="cards_selected"
+                    value="{{card.id}}">
+            </div>
+        {% endfor %}
+        </div>
+    </form> -->
 
 {% endblock %}
