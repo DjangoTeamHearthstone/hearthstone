@@ -1,3 +1,150 @@
 #title_deck:before {
     background-image: url('./../res/titles/title_deck.png');
 }
+
+#panel_deck {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 250px;
+    position: fixed;
+    top: 20%;
+    left: 0;
+    background-size: 100% 100%;
+    border-radius: 0 10px 10px 0;
+    background-repeat: no-repeat;
+    transition: all ease-in-out 0.2s;
+    box-shadow: 1px 0px 10px rgba(0,0,0,0.8);
+    background-image: url('./../res/deck/background_deck.png');
+}
+
+#deck {
+    position: relative;
+    width: 205px;
+    height: 310px;
+    filter: grayscale(0.1);
+    border-radius: 10px;
+}
+
+#panel_deck input {
+    pointer-events: auto;
+    margin-bottom: 10px;
+}
+
+#img_base {
+    position: absolute;
+    width: 205px;
+    height: 310px;
+    background-image: url('./../res/deck/deck_default.png');
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+}
+
+#img_base img {
+    border-radius: 10px;
+}
+
+#img_decks {
+    height: 100%;
+    min-height: 150%;
+    width: auto;
+    position: absolute;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    left: 226px;
+    width: auto;
+    display: none;
+    border-radius: 10px;
+    background-color: #290F02;
+}
+
+#img_decks img {
+    border-radius: 10px;
+    transition: all ease-in-out 0.2s;
+    filter: grayscale(0.6);
+    cursor: pointer;
+}
+
+#img_decks img:hover {
+    filter: grayscale(0.1);
+}
+
+#select_deck {
+    position: absolute;
+    top: 68px;
+    right: 10px;
+    height: 50px;
+    width: 50px;
+    z-index: 10;
+}
+
+#select_deck:hover {
+	filter: brightness(75%);
+}
+
+#select_deck:active {
+	filter: brightness(50%);
+}
+
+#select_deck div:nth-child(1) {
+    position: relative;
+    left: 11px;
+    height: 50px;
+    width: 50px;
+    background-image: url('./../res/deck/arrow_wood_left.png');
+}
+
+#select_deck div:nth-child(2) {
+    position: relative;
+    display: none;
+    left: 47px;
+    height: 50px;
+    width: 50px;
+    background-image: url('./../res/deck/arrow_wood_right.png');
+}
+
+#save_deck {
+    position: absolute;
+    z-index: 10;
+    bottom: 10px;
+    left: 30px;
+    height: 50px;
+    width: 50px;
+    background-image: url('./../res/deck/jewel_green.png');
+    background-position: -50px;
+    cursor: pointer;
+}
+
+#save_deck:hover {
+    background-position: -150px;
+}
+
+#save_deck:active {
+    background-position: -100px;
+}
+
+#nb_card {
+    position: absolute;
+    z-index: 10;
+    bottom: 10px;
+    right: 30px;
+    height: 50px;
+    width: 50px;
+    background-image: url('./../res/deck/nb_panel.png');
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nb_card span {
+    font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+}

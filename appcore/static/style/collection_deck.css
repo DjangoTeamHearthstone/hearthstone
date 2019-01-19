@@ -1,0 +1,46 @@
+#title_collection:before {
+    background-image: url('./../res/titles/title_collection.png');
+}
+
+#deck_btn {
+    display: block;
+    position: absolute;
+    top: 92px;
+    margin-left: 20px;
+}
+
+#deck_btn span {
+    font-size: 20px;
+    background: radial-gradient(rgb(235, 222, 175), rgb(231, 188, 45));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#deck_btn:hover span {
+    background: radial-gradient(rgb(189, 178, 139), rgb(158, 129, 31));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.deck {
+    height: 310px;
+    width: 205px;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.deck img:nth-child(1) {
+    transition: all ease-in-out 0.2s;
+    filter: grayscale(0.5);
+    border-radius: 7px;
+}
+
+.deck img:nth-child(2) {
+    filter: grayscale(0.1);
+    position: relative;
+    top: -314px;
+}
+
+.deck:hover img:nth-child(1) {
+    filter: grayscale(0.1);
+}

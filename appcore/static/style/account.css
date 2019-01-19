@@ -1,3 +1,7 @@
+#component_account {
+    display: block;
+}
+
 #title_account:before {
     background-image: url('./../res/titles/title_account.png');
 }

@@ -1,0 +1,1 @@
+web: gunicorn hearthstone.wsgi --log-file - --log-level debug

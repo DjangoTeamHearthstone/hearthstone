@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/collection_deck_cards.css' %}" type="text/css"/>
+    <title>Hearthstone - Collection</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <form method="POST" id="form_deck">
+        <div id="panel_deck">
+            <input id="name_deck"
+                list="name_deck"
+                name="name_deck"
+                placeholder="{{deck.name}}">
+            <div id="deck">
+                <img src="./.{{ deck.img }}">
+            </div>
+            <div id="nb_card"><span>{{ nb_cards }}</span></div>
+        </div>
+        {% csrf_token %}
+    </form>
+
+    <div class="container">
+
+        <button class="gold_btn small_btn"
+            id="deck_btn" onclick="window.location= window.location.origin + '/collection/deck'">
+            <span>Deck</span>
+        </button>
+
+        <div class="panel_title">
+            <div id="title_collection" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Collection</span>
+                <span class="text_title">Collection</span>
+            </div>
+        </div>
+
+        <div id="component_deck_cards" class="component">
+
+            <form class="panel_creator" method="POST">
+                <div>
+                    <button class="classical_btn small_btn"
+                        id="remove_btn"
+                        name="remove_btn"
+                        value="remove_btn"
+                        type="submit">
+                        <span>Retirer</span>
+                    </button>
+                </div>
+                <div>
+                    {% for card in cards_deck %}
+                        <div class="card">
+                            <img src="{{ card.img }}">
+                            <input type="checkbox"
+                                class="cards_removed"
+                                name="cards_removed"
+                                value="{{card.id}}">
+                        </div>
+                    {% endfor %}
+                </div>
+                {% csrf_token %}
+            </form>
+
+            <form class="panel_assignee" method="POST">
+                <div>
+                    <button class="classical_btn small_btn"
+                        id="add_btn"
+                        name="add_btn"
+                        value="add_btn"
+                        type="submit">
+                        <span>Ajouter</span>
+                    </button>
+                </div>
+                <div>
+                    {% for card in cards_user %}
+                        <div class="card">
+                            <img src="{{ card.img }}">
+                            <input type="checkbox"
+                                class="cards_added"
+                                name="cards_added"
+                                value="{{card.id}}">
+                        </div>
+                    {% endfor %}
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+
+    </div>
+
+    {% include "footer.html" %}
+
+    <script type="text/javascript">
+        $('#name_deck').click(function(e){
+            e.stopPropagation()
+        })
+        // display deck_panel
+        function display_panel() {
+            if($(this).attr('activate')) {
+                $(this).css('left', '0')
+                $(this).removeAttr('activate')
+            } else {
+                $(this).css('left', '-150px')
+                $(this).attr('activate', true)
+            }
+        }
+        $('#panel_deck').on('click', display_panel)
+        $('#name_deck').on('change', function(e) {
+            alert('hello')
+            $('#form_deck').submit()
+        })
+    </script>
+
+{% endblock %}

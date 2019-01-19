@@ -78,65 +78,60 @@
             </div>
         </div>
 
-        {% if exchange_received_id %}
-        <h2 class="subtitle">Proposition d'échange</h2>
-            <div class="panel_exchange">
-                {% for t in zipped %}
-                <form>
-                    <div class="panel_exchange_received" value="{{exchanges_received.id}}">
-                        <div class="panel_exchange_users">
-                            <div>{{ t.0 }}</div>
+        {% if exchanges %}
+            {% for t in zipped %}
+            <form id="form_exchange" method='POST'>
+                {% csrf_token %}
+                <div>
+                    <div class="panel_exchanges">
+                        <div class="panel_exchange">
+                            <div class="user_exchange">{{ t.0 }}</div>
                             <div class="panel_cards">
-                                {% for card_creator in t.1 %}
-                                <div class="frame_card">
-                                    <div class="card">
-                                        <p id="id_name">{{card_creator.name}}</p>
-                                        <p id="id_cost">{{card_creator.cost}}</p>
-                                        <p id="id_health">{{card_creator.health}}</p>
-                                        <p id="id_attack">{{card_creator.attack}}</p>
-                                        <p id="id_text">{{card_creator.text |striptags }}</p>
-                                    </div>
+                                {% for card in t.1 %}
+                                <div class="card">
+                                    <img src="{{ card.img }}">
                                 </div>
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="panel_exchange_users">
-                            <div>{{ assignee }}</div>
+                        <div class="panel_exchange">
+                            <div class="user_exchange">{{ user.get_username }}</div>
                             <div class="panel_cards">
-                                {% for card_assignee in t.2 %}
-                                <div class="frame_card">
-                                    <div class="card">
-                                        <p id="id_name">{{card_assignee.name}}</p>
-                                        <p id="id_cost">{{card_assignee.cost}}</p>
-                                        <p id="id_health">{{card_assignee.health}}</p>
-                                        <p id="id_attack">{{card_assignee.attack}}</p>
-                                        <p id="id_text">{{card_assignee.text |striptags }}</p>
-                                    </div>
+                                {% for card in t.2 %}
+                                <div class="card">
+                                    <img src="{{ card.img }}">
                                 </div>
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="panel_exchange_btn">
-                        <button class="button is-success"
+                        <button class="cladded_btn small_btn"
                             name="accept_btn"
                             value="{{t.3}}"
                             type="submit">
-                            Accepter
+                            <span>Accepter</span>
                         </button>
-                        <button class="button is-warning"
+                        <button class="classical_btn small_btn"
                             name="refuse_btn"
                             value="{{t.3}}"
                             type="submit">
-                            Refuser
+                            <span>Refuser</span>
                         </button>
                     </div>
-                </form>
-                {% endfor %}
-            </div>
+                </div>
+            </form>
+            {% endfor %}
         {% endif %}
     </div>
 
     {% include "footer.html" %}
+
+
+    <script type="text/javascript">
+        if ( $( "#form_exchange" ).length ) {
+            $( "body" ).css('overflow-y', 'hidden')
+        }
+    </script>
 
 {% endblock %}

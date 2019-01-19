@@ -19,37 +19,99 @@
             </div>
         </div>
 
-        <div id="component_forum" class="component"></div>
+        <div id="component_forum" class="component">
+
+            <div id="list_rooms">
+                <form method="POST" id="create_room">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Nouveau sujet" name="create_room">
+                </form>
+                <div id="rooms">
+                    {% for room in rooms %}
+                        <form method="POST" class="form_room">
+                            {% csrf_token %}
+                            <textarea class="room"
+                            value="{{room.name}}"
+                            name="room_title_name"
+                            >{{room.name}}</textarea>
+                        </form>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <form method="POST" id="form_posts">
+                {% csrf_token %}
+                <p>
+                    <input type="text"
+                        name="title_post"
+                        value="Titre post"
+                        maxlength="200"
+                        id="id_title">
+                </p>
+                <p>
+                    <textarea
+                        name="content_post"
+                        cols="40"
+                        rows="10"
+                        id="id_content"
+                        >Contenu post</textarea>
+                </p>
+                <input type="text"
+                    id="title_room"
+                    name="title_room"
+                    maxlength="200"
+                    style="display:none;">
+
+                <button
+                    class="cladded_btn small_btn btn_validate"
+                    id="btn_validate"
+                    type="submit">
+                    <span>Valider</span>
+                </button>
+            </form>
+
+            {% for post in posts %}
+
+            <div class="panel_post">
+
+                <div class="panel_post_header">
+                    <div><span>{{post.title}}</span></div>
+                    <div>{{post.date}} - {{post.user}}</div>
+                </div>
+                <div class="panel_post_content">{{post.content}}</div>
+
+            </div>
+
+        {% endfor %}
+        </div>
     </div>
 
     {% include "footer.html" %}
 
-<!--
-    <h2 class="subtitle">Forum</h2>
-    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
-
-    <form method="post">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <button class="button is-link"  type="submit">Valider</button>
-    </form>
-
-
-    {% for post in posts %}
-
-        <div class="panel_post">
-
-            <div class="panel_post_header">
-                <div>{{post.title}}</div>
-                <div>{{post.date}}</div>
-                <div>{{post.user}}</div>
-            </div>
-            <div class="panel_post_content">{{post.content}}</div>
-
-        </div>
-
-    {% endfor %} -->
+    <script type="text/javascript">
+        $('#title_room').val(sessionStorage.getItem('room_name'))
+        // display deck_panel
+        function display_panel() {
+            if($(this).attr('activate')) {
+                $(this).css('left', '0')
+                $(this).removeAttr('activate')
+            } else {
+                $(this).css('left', '-150px')
+                $(this).attr('activate', true)
+            }
+        }
+        $('#list_rooms').on('click', display_panel)
+        $('.room').click(function(e){
+            $(this).parent().submit()
+            e.stopPropagation()
+        })
+        $('#create_room input').click(function(e){
+            e.stopPropagation()
+        })
+        $('#create_room input').on('change', function(e) {
+            $('#create_room').submit()
+            sessionStorage.setItem('room_name', $('#create_room input:nth-child(2)').val())
+        })
+    </script>
 
 {% endblock %}

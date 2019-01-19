@@ -1,3 +1,193 @@
 #title_forum:before {
     background-image: url('./../res/titles/title_forum.png');
 }
+
+.component {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+form {
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.panel_post {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.panel_post_header {
+    margin-bottom: 20px;
+}
+
+.panel_post_header div {
+    text-align: center;
+}
+
+.panel_post_header div:nth-child(1) {
+    background-image: url('./../res/buttons/exchange_title.png');
+    margin-bottom: 10px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel_post_header div:nth-child(1) span {
+    font-size: 18px;
+    font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.panel_post_content {
+    font-size: 15px;
+    max-width: 500px;
+}
+
+
+#form_posts {
+    flex-direction: row;
+    height: 60px;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 50px);
+    left: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+    align-items: center;
+    margin-bottom: 0;
+    padding-top: 15px;
+    background-size: 100% 100%;
+    box-shadow: 0 0px 10px 2px rgba(0,0,0,0.8);
+}
+
+@media (max-width: 767px) {
+    #form_posts {
+    	background-image: url('./../res/divers/forum_768.png');
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #form_posts {
+    	background-image: url('./../res/divers/forum_1024.png');
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1406px) {
+    #form_posts {
+    	background-image: url('./../res/divers/forum_1407.png');
+    }
+}
+
+@media (min-width: 1407px) {
+    #form_posts {
+    	background-image: url('./../res/divers/forum_1600.png');
+    }
+}
+
+#form_posts label {
+    display: none;
+}
+
+#form_posts p {
+    margin: 0;
+}
+
+#form_posts > p:nth-child(3) {
+    min-width: 300px;
+    width: 50%;
+}
+
+#form_posts textarea {
+    height: 56px;
+    position: relative;
+    bottom: 2px;
+}
+
+#list_rooms {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 250px;
+    position: fixed;
+    top: 20%;
+    left: 0;
+    background-size: 100% 100%;
+    border-radius: 0 10px 10px 0;
+    background-repeat: no-repeat;
+    transition: all ease-in-out 0.2s;
+    box-shadow: 1px 0px 10px rgba(0,0,0,0.8);
+    padding: 0;
+    background-image: url('./../res/deck/background_deck.png');
+}
+#create_room {
+    height: 60px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    width: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#create_room input {
+    margin-bottom: 0;
+}
+
+#rooms {
+    height: 315px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    margin-left: 10px;
+    width: 225px;
+    overflow-y: auto;
+}
+
+.room {
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    height: 35px !important;
+    background: none!important;
+    cursor: pointer;
+    width: 200px !important;
+    background-image: initial !important;
+    border-radius: 10px !important;
+    border: none !important;
+    color: transparent !important;
+    font-size: 18px !important;
+    font-family: hearthstone_font !important;
+	background: -webkit-linear-gradient(#eee, #999) !important;
+	-webkit-background-clip: text !important;
+	-webkit-text-fill-color: transparent !important;
+
+    &:focus {
+        outline: none !important;
+    }
+}
+.room:focus {
+    outline: none;
+}
+
+.room:hover {
+    text-shadow: 0 0 0 black !important;
+    background: pink !important;
+    background-color: rgba(211,211,211, 0.4) !important;
+}
+
+.form_room {
+    margin: 0;
+}

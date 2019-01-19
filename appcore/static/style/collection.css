@@ -1,3 +1,23 @@
 #title_collection:before {
     background-image: url('./../res/titles/title_collection.png');
 }
+
+#deck_btn {
+    display: block;
+    position: absolute;
+    top: 92px;
+    margin-left: 20px;
+}
+
+#deck_btn span {
+    font-size: 20px;
+    background: radial-gradient(rgb(235, 222, 175), rgb(231, 188, 45));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#deck_btn:hover span {
+    background: radial-gradient(rgb(189, 178, 139), rgb(158, 129, 31));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -34,18 +34,6 @@ class ModifyForm(UserChangeForm):
             'email': 'Adresse mail'
         }
 
-# class CardForm(forms.ModelForm):
-#     class Meta:
-#         model = Card
-#         fields = [ 'name', 'cost', 'health', 'attack', 'text']
-#         labels = {
-#             'name': 'Nom',
-#             'cost': 'Coût',
-#             'health': 'Santé',
-#             'attack': 'Attaque',
-#             'text': 'Propriété'
-#         }
-
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

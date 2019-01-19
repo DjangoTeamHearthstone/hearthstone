@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style/collection_deck.css' %}" type="text/css"/>
+    <title>Hearthstone - Collection</title>
+{% endblock %}
+
+{% block body %}
+
+    {% include "header.html" %}
+
+    <div class="container">
+
+        <button class="gold_btn small_btn"
+            id="deck_btn" onclick="window.location= window.location.origin + '/collection'">
+            <span>Cartes</span>
+        </button>
+
+        <div class="panel_title">
+            <div id="title_collection" class="img_title"></div>
+            <div class="title">
+                <span class="frame_title">Collection</span>
+                <span class="text_title">Collection</span>
+            </div>
+        </div>
+
+        <div id="component_collection_deck" class="component">
+            {% for deck in decks_user %}
+
+            <div class="deck"
+                onclick="window.location= window.location.origin + '/deck/cartes/{{deck.id}}'">
+                <img src="{{ deck.img }}">
+                <img src="./../../static/res/deck/frame_deck.png">
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+    <script type="text/javascript">
+    </script>
+
+{% endblock %}

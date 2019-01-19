@@ -81,6 +81,10 @@ header {
     }
 }
 
+#logo {
+	cursor: pointer;
+}
+
 footer {
 	width: calc(100% - 60%);
 	padding: 0 30% 0 30%;
@@ -125,6 +129,31 @@ footer {
 
 #return_btn {
 	margin-top: 15px;
+}
+
+#black_screen {
+	display: none;
+	position: absolute;
+	z-index: 50;
+	top: 0;
+	left: 0;
+	height: calc(100% + 15px);
+	width: 100%;
+	background-color: rgba(0,0,0,0.8);
+	transition: all ease-in-out 0.2s;
+}
+
+#black_screen div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 250px;
+	height: 200px;
+}
+
+#black_screen img {
+	height: 80px;
+	width: 80px;
 }
 
 /* btn */
@@ -212,7 +241,9 @@ button:hover span {
 
 /* page */
 .container {
-	margin: 0 15% 0 15%;
+	margin: 0 auto;
+    width: 75%;
+    max-width: 950px;
 }
 
 .component {
@@ -220,14 +251,62 @@ button:hover span {
 	margin-top: 200px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 
 .pagination {
+	margin-left: auto;
+	margin-right: auto;
+	width: 15%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 40px;
+}
+
+
+.step-links {
+	display: flex;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.step-links div {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	font-size: 25px;
+	background-image: url('./../res/footer/links.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+.step-links a {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	font-size: 25px;
+	background-image: url('./../res/footer/links.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 35px;
+	user-select: none;
+	font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-decoration: none;
+}
+
+.step-links:hover {
+	filter: brightness(75%);
+}
+
+.step-links:active {
+	filter: brightness(50%);
 }
 
 /* form */
@@ -245,7 +324,7 @@ form p {
     margin: 0 0 15px 0;
 }
 
-input {
+input:not([type='checkbox']), select, datalist, option {
 	width: 170px;
 	height: 25px;
 	background-color: transparent;
@@ -255,11 +334,45 @@ input {
 	background-image: url('./../res/form/input.png');
 	background-size: 100% 100%;
 	border-radius: 5px;
+	cursor: text;
 }
 
-textarea:focus, input:focus {
+input[type='checkbox'] {
+	height: 25px;
+	width: 25px;
+	outline: none;
+	background-image: url('./../res/buttons/btn_checkbox.png');
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+select {
+	width: 186px;
+	height: 35px;
+}
+
+input:not([type='checkbox']):focus,
+select:focus,
+textarea:focus {
 	background-color: rgba(211,211,211, 0.8);
 	outline: none;
+}
+
+input:not([type='checkbox']), select, datalist {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+input:not([type='checkbox'])::-webkit-calendar-picker-indicator {
+	display: none;
+}
+
+#name_deck * {
+	background-color: transparent;
 }
 
 .helptext {
@@ -268,6 +381,19 @@ textarea:focus, input:focus {
 
 form ul {
 	display: none;
+}
+
+textarea {
+	border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+	resize: none;
+	background-color: rgba(211,211,211, 0.4);
 }
 
 /* panel */
@@ -310,6 +436,13 @@ form ul {
 
 .panel:hover .small_btn {
 	background-position: calc(155px * -1);
+}
+
+.panel:hover .small_btn span {
+	color: #888;
+	background: initial;
+	-webkit-background-clip: initial;
+	-webkit-text-fill-color: initial;
 }
 
 .panel:after {
@@ -393,11 +526,6 @@ form ul {
 	bottom:-25px;
 }
 
-.title_start {
-	position: relative;
-	bottom: 0;
-}
-
 @media (max-width: 1023px) {
     .title {
 		background-image: url('./../res/titles/title_text_768.png');
@@ -426,6 +554,13 @@ form ul {
     }
 }
 
+.title_start {
+	bottom: 0;
+	width: 515px;
+	position: relative;
+	background-image: url('./../res/titles/title_text_1024.png');
+}
+
 .frame_title {
 	display: block;
 	font-family: hearthstone_font;
@@ -451,6 +586,9 @@ form ul {
 
 /* card */
 .card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .card img {
@@ -461,6 +599,41 @@ form ul {
 .card form {
 	margin: 0;
 	margin-bottom: 20px;
+}
+
+/* messages */
+.alert-box {
+	vertical-align: middle;
+	text-align: center;
+    border: 1px solid transparent;
+    display: none;
+    position: fixed;
+    z-index: 50;
+    top: calc(50% - 125px);
+	right: calc(50% - 175px);
+	width: 350px;
+	height: 250px;
+	line-height: 250px;
+	background-image: url('./../res/background/msg_background.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.msg_card_buy span, .msg_deck_created span,
+.msg_card_added span, .msg_img_deck span, .msg_card_sell span {
+	font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, rgb(26, 167, 56));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.msg_deck_exists span, .msg_4_decks span,
+.msg_30_cards span, .msg_twice_card span,
+.msg_alone_card span, .msg_fail_img_deck span {
+	font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, rgb(172, 26, 26));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 /* scrollbar */

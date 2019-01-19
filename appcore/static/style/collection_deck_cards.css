@@ -1,0 +1,142 @@
+#title_collection:before {
+    background-image: url('./../res/titles/title_collection.png');
+}
+
+#deck_btn {
+    display: block;
+    position: absolute;
+    top: 92px;
+    margin-left: 20px;
+}
+
+#deck_btn span {
+    font-size: 20px;
+    background: radial-gradient(rgb(235, 222, 175), rgb(231, 188, 45));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#deck_btn:hover span {
+    background: radial-gradient(rgb(189, 178, 139), rgb(158, 129, 31));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#panel_deck {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 250px;
+    position: fixed;
+    top: 20%;
+    left: 0;
+    background-size: 100% 100%;
+    border-radius: 0 10px 10px 0;
+    background-repeat: no-repeat;
+    transition: all ease-in-out 0.2s;
+    box-shadow: 1px 0px 10px rgba(0,0,0,0.8);
+    background-image: url('./../res/deck/background_deck.png');
+}
+
+#deck {
+    position: relative;
+    width: 205px;
+    height: 310px;
+    filter: grayscale(0.1);
+    border-radius: 10px;
+}
+
+#deck img {
+    border-radius: 10px;
+}
+
+#panel_deck input {
+    pointer-events: auto;
+    margin-bottom: 10px;
+}
+
+#img_base {
+    position: absolute;
+    width: 205px;
+    height: 310px;
+    background-image: url('./../res/deck/deck_default.png');
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+}
+
+#nb_card {
+    position: absolute;
+    z-index: 10;
+    bottom: 10px;
+    right: 30px;
+    height: 50px;
+    width: 50px;
+    background-image: url('./../res/deck/nb_panel.png');
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nb_card span {
+    font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+}
+
+
+.panel_creator, .panel_assignee {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 30px 0;
+}
+
+#username, #assignee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#username div, #assignee div {
+    height: 60px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./../res/buttons/exchange_title.png');
+}
+
+#username div span, #assignee div span {
+    font-family: hearthstone_font;
+	background: -webkit-linear-gradient(#eee, #999);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.card {
+    width: 205px;
+}
+
+.panel_creator > div:nth-child(1),
+.panel_assignee > div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+}
+
+.panel_creator > div:nth-child(2),
+.panel_assignee > div:nth-child(2) {
+    margin-top: 15px;
+    display: flex;
+    height: 800px;
+    flex-wrap: wrap;
+    overflow-y: overlay;
+    justify-content: center;
+}

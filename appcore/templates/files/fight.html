@@ -120,27 +120,6 @@
         })
 
         function handToGround(player) {
-            // if(player==='user') {
-            //     $('body').delegate('.frame_hand_user', 'click', function(e){
-            //         if($('.frame_ground_user').length <= 5){
-            //             // console.log('HERE IS USER => ', $(this).attr('id'))
-            //             cardToGround = {
-            //                 'id': parseInt($(this).attr('id').split('_')[1]),
-            //                 'cost': parseInt($(this).find("#id_cost").text(), 10),
-            //                 'health': parseInt($(this).find("#id_health").text(), 10),
-            //                 'attack': parseInt($(this).find("#id_attack").text(), 10)
-            //             }
-            //             groundUser.push(cardToGround)
-            //             $(this).removeClass('frame_hand_user').addClass('frame_ground_user')
-            //             $('.panel_ground_user').append(this)
-            //             $(this).unbind( "click" ) // remove 1° click event
-
-            //             $(this).on('click', function(){ // click card ground
-            //                 console.log(this)
-            //             })
-            //         }
-            //     })
-            // }
             if(player==='ia') {
                 if($('.frame_ground_ia').length <= 5){
                     var frameCards = $('.frame_hand_ia')

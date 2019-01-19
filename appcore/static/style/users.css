@@ -1,3 +1,10 @@
 #title_users:before {
     background-image: url('./../res/titles/title_users.png');
 }
+
+#form_users {
+    display: block;
+    position: absolute;
+    top: 240px;
+    margin-left: 7px;
+}

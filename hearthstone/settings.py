@@ -13,7 +13,7 @@ SECRET_KEY = '#!p*%wj#&gjt&)u)7y^gon9g$j3ne#78t@z81la1sbus3w&!-d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,6 +36,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'hearthstone.urls'
@@ -65,10 +66,10 @@ WSGI_APPLICATION = 'hearthstone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lfhhukey',
-        'USER': 'lfhhukey',
-        'PASSWORD': 'FPBvwC_KEc94LAUOPH1SE9hOAfhoVX2M',
-        'HOST': 'horton.elephantsql.com',
+        'NAME': 'rbejvhze',
+        'USER': 'rbejvhze',
+        'PASSWORD': 'LiZknROrsTMVPNeElYK9qWWWoo7Q8tXW',
+        'HOST': 'elmer.db.elephantsql.com',
         'PORT': '5432',
     }
 }
@@ -110,4 +111,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')

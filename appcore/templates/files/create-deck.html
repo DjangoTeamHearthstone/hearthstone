@@ -10,6 +10,38 @@
 
     {% include "header.html" %}
 
+    <div id="panel_deck">
+        <input id="name_deck"
+            list="name_deck"
+            name="name_deck"
+            placeholder="Nom du Deck">
+            <datalist id="name_deck">
+                <option value="Internet Explorer">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari">
+            </datalist>
+        <div id="deck" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id="img_base"></div>
+            <div id="img_decks">
+                <img src="./../../static/res/deck/deck_1.png">
+                <img src="./../../static/res/deck/deck_2.png">
+                <img src="./../../static/res/deck/deck_3.png">
+                <img src="./../../static/res/deck/deck_4.png">
+                <img src="./../../static/res/deck/deck_5.png">
+                <img src="./../../static/res/deck/deck_6.png">
+                <img src="./../../static/res/deck/deck_7.png">
+            </div>
+        </div>
+        <div id="select_deck">
+            <div></div>
+            <div></div>
+        </div>
+        <div id="nb_card"><span></span></div>
+        <div id="save_deck"></div>
+    </div>
+
     <div class="container">
         <div class="panel_title">
             <div id="title_deck" class="img_title"></div>
@@ -19,85 +51,200 @@
             </div>
         </div>
 
-        <div id="component_deck" class="component"></div>
+        <div id="component_deck" class="component">
+            {% for card in cards_user %}
+
+            <div class="card" draggable="true" ondragstart="drag(event)">
+                <img src="{{ card.img }}" value="{{ card.id }}">
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if cards_user.has_previous %}
+                    <div><a href="?page={{ cards_user.previous_page_number }}"><</a></div>
+                {% endif %}
+                {% if cards_user.has_next %}
+                    <div><a href="?page={{ cards_user.next_page_number }}">></a></div>
+                {% endif %}
+            </span>
+        </div>
     </div>
 
     {% include "footer.html" %}
 
-    <!-- <h2 class="subtitle">Collection</h2>
-    <p>Trésorerie : {{ user.profile.treasure }}</p>
-    <a class="button is-info" href="/tableau-de-bord/">Tableau de bord</a>
-
-    {% if messages %} {% for message in messages %}
-        <div class="{{ message.tags }}">{{ message }}</div>
-    {% endfor %} {% endif %}
-
-    <form method="get">
-        <div>
-            <button class="button is-link"
-                id="create_deck"
-                name="create_deck"
-                value="create_deck"
-                type="submit"
-                disabled>
-                Créer Deck
-            </button>
-            <label for="name_deck">Nom du Deck</label>
-            <input type="text" name="name_deck" placeholder="Nom du Deck" value="Nom du Deck"/>
-        </div>
-        <div class="card_panel">
-            {% for card in cards_user %}
-                <div class="frame_card">
-                    <div class="card">
-                        <p id="id_name">{{card.name}}</p>
-                        <p id="id_cost">{{card.cost}}</p>
-                        <p id="id_health">{{card.health}}</p>
-                        <p id="id_attack">{{card.attack}}</p>
-                        <p id="id_text">{{card.text|striptags}}</p>
-                    </div>
-                    <input type="checkbox"
-                        class="card_checkbox"
-                        name="cards_selected"
-                        value="{{card.id}}">
-                </div>
-            {% endfor %}
-        </div>
-    </form>
-
-<script type="text/javascript">
-    nbChecked = 0
-    createBtn = document.getElementById('create_deck')
-    array = document.getElementsByClassName('card_checkbox')
-    for( i = 0 ; i < array.length ; i++ ){
-        el = array[i]
-        if (el.checked) {
-            nbChecked += 1
+    <script type="text/javascript">
+        let nb_cards
+        // if nb_cards doesn t exist
+        if(sessionStorage.getItem('nb_cards')) {
+            nb_cards = parseInt(sessionStorage.getItem('nb_cards'))
+            $('#nb_card span').html(nb_cards)
         }
-        if (nbChecked === 3) {
-            createBtn.removeAttribute('disabled');
-        } else {
-            if (!createBtn.hasAttribute('disabled')) {
-                createBtn.setAttribute('disabled', '');
+        // if deck_created rename input
+        if(sessionStorage.getItem('deck_created')) {
+            $('#name_deck').val(sessionStorage.getItem('deck_created'))
+            $('#save_deck').css('background-position', '0')
+
+        }
+        // if deck_created rename input
+        if(sessionStorage.getItem('img_deck')) {
+            $('#name_deck').val(sessionStorage.getItem('deck_created'))
+            $('#img_base').html('<img src="' + sessionStorage.getItem('img_deck') + '">')
+        }
+        // drag and drop
+        let el_dragged
+        function allowDrop(ev) {
+            ev.preventDefault()
+        }
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id)
+            el_dragged = ev.target.getAttribute('value')
+        }
+        function drop(ev) {
+            ev.preventDefault()
+            // let data = ev.dataTransfer.getData('text')
+            if(sessionStorage.getItem('deck_created')) {
+                ev.preventDefault()
+                $.ajax({
+                    type: 'POST',
+                    url: '/creation-de-deck/',
+                    data:{
+                        card_to_deck: el_dragged,
+                        deck_created: sessionStorage.getItem('deck_created'),
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('#black_screen').css('display', 'flex')
+                    },
+                    complete: function() {
+                        $('#black_screen').css('display', 'none')
+                    },
+                    success: function (data) {
+                        if (data.failed == 'alone_card') {
+                            $( ".msg_alone_card" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else if (data.failed == 'fail_30_cards') {
+                            $( ".msg_30_cards" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else if (data.failed == 'twice_card') {
+                            $( ".msg_twice_card" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else {
+                            nb_cards += 1
+                            sessionStorage.setItem('nb_cards', nb_cards)
+                            if(isNaN(sessionStorage.getItem('nb_cards'))) {
+                                nb_cards = 0
+                                nb_cards += 1
+                                sessionStorage.setItem('nb_cards', nb_cards)
+                            }
+                            $('#nb_card span').html(nb_cards)
+                            $( ".msg_card_added" ).fadeIn( 300 ).delay( 1000 ).fadeOut( 400 )
+                            sessionStorage.setItem('deck_created', $('#name_deck').val())
+                        }
+                    }
+                })
             }
         }
-        el.addEventListener('click', function() {
-            if (nbChecked < 0) {
-                nbChecked = 0
-            }
-            if (this.checked) {
-                nbChecked += 1
+        // display deck_panel
+        function display_panel() {
+            if($(this).attr('activate')) {
+                $(this).css('left', '0')
+                $(this).removeAttr('activate')
             } else {
-                nbChecked -= 1
+                $(this).css('left', '-150px')
+                $(this).attr('activate', true)
+                $('#img_decks').css('display', 'none')
             }
-            if (nbChecked === 30) {
-                return createBtn.removeAttribute('disabled');
-            } else {
-                if (!createBtn.hasAttribute('disabled')) {
-                    return createBtn.setAttribute('disabled', '');
+        }
+        $('#panel_deck').on('click', display_panel)
+        // input click
+        $('#panel_deck input').click(function(e) {
+            e.stopPropagation()
+        })
+        // save_deck
+        $('#save_deck').click(function(e) {
+            e.stopPropagation()
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: '/creation-de-deck/',
+                data:{
+                    name_deck: $('#name_deck').val(),
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                },
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#black_screen').css('display', 'flex')
+                },
+                complete: function() {
+                    $('#black_screen').css('display', 'none')
+                },
+                success: function (data) {
+                    if (data.failed == 'fail_4_decks') {
+                        $( ".msg_4_decks" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                    } else if(data.failed == 'fail_deck_exists') {
+                        $( ".msg_deck_exists" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                    } else {
+                        $( ".msg_deck_created" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        sessionStorage.clear()
+                        $('#img_base').html('')
+                        sessionStorage.setItem('deck_created', $('#name_deck').val())
+                        $('#save_deck').css('background-position', '0')
+                        $('#nb_card span').html(null)
+                        nb_cards = 0
+                    }
                 }
+            })
+        })
+        document.getElementById('select_deck').addEventListener('click',function(e){
+            e.stopPropagation()
+            if($(this).attr('activate')) {
+                $(this).removeAttr('activate')
+                $('div:nth-child(1)', this).css("display", "block")
+                $('div:nth-child(2)', this).css("display", "none")
+                document.getElementById('img_decks').style.display = 'none'
+            } else {
+                $(this).attr('activate', true)
+                $('div:nth-child(2)', this).css("display", "block")
+                $('div:nth-child(1)', this).css("display", "none")
+                document.getElementById('img_decks').style.display = 'flex'
             }
         })
-    }
-</script> -->
+        document.getElementById('save_deck').addEventListener('click',function(e){
+            e.stopPropagation()
+        })
+        $('#img_decks img').click(function(e){
+            e.stopPropagation()
+
+            if(sessionStorage.getItem('deck_created')) {
+                sessionStorage.setItem('img_deck', $(this).attr('src'))
+                $('#img_base').html('<img src="' + sessionStorage.getItem('img_deck') + '">')
+                e.preventDefault()
+                $.ajax({
+                    type: 'POST',
+                    url: '/creation-de-deck/',
+                    data:{
+                        deck_name: sessionStorage.getItem('deck_created'),
+                        img_deck: sessionStorage.getItem('img_deck'),
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('#black_screen').css('display', 'flex')
+                    },
+                    complete: function() {
+                        $('#black_screen').css('display', 'none')
+                    },
+                    success: function (data) {
+                        if (data.failed == 'fail') {
+                            $( ".msg_fail_img_deck" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        } else {
+                            $( ".msg_img_deck" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+                        }
+                    }
+                })
+            }
+        })
+    </script>
 
 {% endblock %}
