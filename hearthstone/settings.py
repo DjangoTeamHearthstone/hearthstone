@@ -64,12 +64,20 @@ WSGI_APPLICATION = 'hearthstone.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'rbejvhze',
+    #     'USER': 'rbejvhze',
+    #     'PASSWORD': 'LiZknROrsTMVPNeElYK9qWWWoo7Q8tXW',
+    #     'HOST': 'elmer.db.elephantsql.com',
+    #     'PORT': '5432',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rbejvhze',
-        'USER': 'rbejvhze',
-        'PASSWORD': 'LiZknROrsTMVPNeElYK9qWWWoo7Q8tXW',
-        'HOST': 'elmer.db.elephantsql.com',
+        'NAME': 'ljbfzqkt',
+        'USER': 'ljbfzqkt',
+        'PASSWORD': 'iHvWIrZMEhqwyr13ujnHTvi8WasjOi5X',
+        'HOST': 'baasu.db.elephantsql.com',
         'PORT': '5432',
     }
 }

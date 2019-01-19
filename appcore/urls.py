@@ -16,6 +16,5 @@ urlpatterns = [
     path('creation-de-deck/', views.create_deck_view, name="create-deck"),
     path('echanger/', views.exchange_view, name="exchange"),
     path('forum/', views.forum_view, name="forum"),
-    path('preparation/', views.preparation_view, name="preparation"),
-    path('combat/', views.fight_view, name="fight"),
+    path('fight/', views.fight_view, name="fight"),
 ]

@@ -21,8 +21,13 @@
 
             {{ form.as_p }}
 
-            <button class="cladded_btn" type="submit"
-                onclick="window.location= window.location.origin + '/connexion'">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}{{ message }}{% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <button class="cladded_btn" type="submit">
                 <span>S'inscrire</span>
             </button>
         </form>

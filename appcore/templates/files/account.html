@@ -28,8 +28,7 @@
 
                 <button
                     class="cladded_btn small_btn"
-                    type="submit"
-                    onclick="window.location= window.location.origin + '/connexion'">
+                    type="submit">
                     <span>Valider</span>
                 </button>
             </form>
@@ -41,14 +40,32 @@
 
                 <button
                     class="classical_btn small_btn"
-                    type="submit"
-                    onclick="window.location= window.location.origin + '/connexion'">
+                    type="submit">
                     <span>Valider</span>
+                </button>
+            </form>
+
+            <form>
+                {% csrf_token %}
+
+                <button
+                    id="delete_account"
+                    name="delete_account"
+                    value="delete_account"
+                    class="red_btn small_btn"
+                    type="submit">
+                    <span>Supprimer</span>
                 </button>
             </form>
         </div>
     </div>
 
     {% include "footer.html" %}
+
+    <script type="text/javascript">
+        document.getElementById('delete_account').addEventListener('click', function(){
+            sessionStorage.clear()
+        })
+    </script>
 
 {% endblock %}

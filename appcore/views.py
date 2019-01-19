@@ -46,6 +46,9 @@ def register_view(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/connexion/')
+        else:
+            messages.warning(request, form.errors.as_text())
+            return render(request, 'files/register.html', {'form': form})
 
     else:
         form = RegisterForm()
@@ -162,6 +165,10 @@ def account_view(request):
         form_password.fields['new_password1'].label = 'Nouveau mot de passe'
         form_password.fields['new_password2'].label = 'Confirmer mot de passe'
 
+    if request.GET.get('delete_account'): # delete account
+        User.objects.get(username=request.user).delete()
+        logout(request)
+        return HttpResponseRedirect('/')
 
     return render(request, 'files/account.html', {
         'user': request.user,
@@ -477,6 +484,6 @@ def forum_view(request):
 
 
 @login_required(login_url='/connexion')
-def preparation_view(request):
+def fight_view(request):
 
-    return render(request, 'files/preparation.html')
+    return render(request, 'files/fight.html')
