@@ -64,14 +64,6 @@ WSGI_APPLICATION = 'hearthstone.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'rbejvhze',
-    #     'USER': 'rbejvhze',
-    #     'PASSWORD': 'LiZknROrsTMVPNeElYK9qWWWoo7Q8tXW',
-    #     'HOST': 'elmer.db.elephantsql.com',
-    #     'PORT': '5432',
-    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ljbfzqkt',
@@ -123,3 +115,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
+
+# Email retrieving
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = 'djangoteam.hearthstone@gmail.com'
+EMAIL_HOST_PASSWORD = 'DjangoT2hearthstone'
