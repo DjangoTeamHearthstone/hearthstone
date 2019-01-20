@@ -12,3 +12,8 @@
     align-items: center;
     width: 100%;
 }
+
+#password_reset {
+    color: #41291a;
+    margin-bottom: 15px;
+}

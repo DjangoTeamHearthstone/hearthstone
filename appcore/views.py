@@ -12,6 +12,7 @@ from .models import Card, Deck, User_Card, Deck_Card, Profile, Post, Exchange, E
 from django.template.defaulttags import register
 from django.conf.urls.static import static
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.utils.safestring import mark_safe
 
 import datetime, requests, random, os, json
 
@@ -484,6 +485,7 @@ def forum_view(request):
 
 
 @login_required(login_url='/connexion')
-def fight_view(request):
-
-    return render(request, 'files/fight.html')
+def fight_view(request, room_name):
+    return render(request, 'files/fight.html', {
+        'room_name_json': mark_safe(json.dumps(room_name))
+    })

@@ -1,6 +1,5 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
-# from django.contrib.auth.views import login
 from django.contrib.auth import views as auth_views
 
 
@@ -18,10 +17,6 @@ urlpatterns = [
     path('creation-de-deck/', views.create_deck_view, name="create-deck"),
     path('echanger/', views.exchange_view, name="exchange"),
     path('forum/', views.forum_view, name="forum"),
-    path('fight/', views.fight_view, name="fight"),
-
-    # path('mot-de-passe/', views.PasswordResetView, name="password_reset"),
-    # path('mot-de-passe/done/', views.PasswordResetDoneView, name="password_reset_done"),
     path('mot-de-passe/', auth_views.PasswordResetView.as_view(
         template_name='files/password_reset.html'
     ), name="password_reset"),
@@ -31,4 +26,5 @@ urlpatterns = [
     path('mot-de-passe-confirmation/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
         template_name='files/password_reset_confirm.html'
     ), name="password_reset_confirm"),
+    re_path(r'^combat/(?P<room_name>[^/]+)/$', views.fight_view, name='room'),
 ]

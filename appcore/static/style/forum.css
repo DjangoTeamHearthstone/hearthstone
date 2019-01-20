@@ -32,6 +32,7 @@ form {
 .panel_post_header div:nth-child(1) {
     background-image: url('./../res/buttons/exchange_title.png');
     margin-bottom: 10px;
+    width: 150px;
     height: 60px;
     display: flex;
     align-items: center;
